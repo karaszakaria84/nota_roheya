@@ -1,0 +1,2815 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>النوتة الروحية</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+:root {
+    --primary-bg: #fdfaf3;
+    --card-bg: #ffffff;
+    --gold: #c49a45;
+    --gold-dark: #a67d2e;
+    --gold-light: #f5edd9;
+    --text-dark: #33281c;
+    --text-muted: #9b8a75;
+    --blue: #3b6ea5;
+    --green: #2e8b57;
+    --danger: #d9534f;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: 'Tajawal', sans-serif;
+    background: #14100c;
+    background-image: url('https://images.unsplash.com/photo-1548625361-ec8595a3b6a7?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--text-dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(20,16,12,0.8);
+    backdrop-filter: blur(10px);
+}
+
+.app-container {
+    width: 100%;
+    max-width: 430px;
+    background: var(--primary-bg);
+    border-radius: 44px;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+    padding: 30px 24px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    border: 10px solid #241d15;
+    min-height: 780px;
+    max-height: 92vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.app-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+
+@media (max-width:500px) {
+
+    body {
+        padding:0;
+    }
+
+    body::before {
+        display:none;
+    }
+
+    .app-container {
+        max-width:100%;
+        min-height:100vh;
+        max-height:100vh;
+        border-radius:0;
+        border:none;
+        padding:25px 20px;
+    }
+}
+
+.screen {
+    display:none;
+    flex-direction:column;
+    flex-grow:1;
+    overflow:hidden;
+    animation:fadeIn .4s ease;
+}
+
+.screen.active {
+    display:flex;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to {
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* ================= HEADER ================= */
+
+.brand-header {
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.brand-icon {
+    width:60px;
+    height:60px;
+    margin:0 auto 10px;
+    background:linear-gradient(135deg,var(--gold-light),#fff);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    color:var(--gold);
+    box-shadow:0 6px 18px rgba(196,154,69,.25);
+    border:2px solid var(--gold-light);
+}
+
+.brand-header h1 {
+    font-size:24px;
+    font-weight:900;
+}
+
+.brand-header p {
+    font-size:13px;
+    color:var(--text-muted);
+    font-weight:500;
+}
+
+/* ================= TABS ================= */
+
+.tabs {
+    display:flex;
+    background:var(--gold-light);
+    border-radius:14px;
+    padding:5px;
+    margin-bottom:22px;
+}
+
+.tab-btn {
+    flex:1;
+    padding:11px;
+    background:transparent;
+    border:none;
+    border-radius:10px;
+    font-family:'Tajawal';
+    font-size:15px;
+    font-weight:700;
+    color:var(--text-muted);
+    cursor:pointer;
+}
+
+.tab-btn.active {
+    background:white;
+    color:var(--gold-dark);
+    box-shadow:0 3px 10px rgba(196,154,69,.2);
+}
+
+/* ================= FORMS ================= */
+
+.form-group {
+    margin-bottom:14px;
+    text-align:right;
+}
+
+.form-group label {
+    display:block;
+    margin-bottom:6px;
+    font-weight:700;
+    font-size:13px;
+}
+
+.input-wrapper {
+    position:relative;
+    display:flex;
+    align-items:center;
+}
+
+.input-wrapper > i {
+    position:absolute;
+    right:15px;
+    color:var(--gold);
+    font-size:15px;
+    pointer-events:none;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+    width:100%;
+    padding:13px 44px 13px 15px;
+    border:1.5px solid #eadfc5;
+    border-radius:13px;
+    background:white;
+    font-family:'Tajawal';
+    font-size:15px;
+    color:var(--text-dark);
+    outline:none;
+    transition:.25s;
+    appearance:none;
+    font-weight:500;
+}
+
+.input-wrapper input:focus,
+.input-wrapper select:focus {
+    border-color:var(--gold);
+    box-shadow:0 0 0 4px rgba(196,154,69,.12);
+}
+
+.form-row {
+    display:flex;
+    gap:10px;
+}
+
+.form-row .form-group {
+    flex:1;
+}
+
+/* ================= BUTTONS ================= */
+
+.btn {
+    width:100%;
+    padding:14px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+    color:white;
+    border:none;
+    border-radius:13px;
+    font-family:'Tajawal';
+    font-size:16px;
+    font-weight:800;
+    cursor:pointer;
+    margin-top:8px;
+    transition:.25s;
+    box-shadow:0 6px 18px rgba(196,154,69,.35);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+}
+
+.btn:hover {
+    transform:translateY(-2px);
+}
+
+.btn-success {
+    background:linear-gradient(135deg,#3aab6b,var(--green));
+}
+
+.btn-outline {
+    width:100%;
+    padding:12px;
+    background:transparent;
+    color:var(--gold-dark);
+    border:1.5px solid var(--gold);
+    border-radius:13px;
+    font-family:'Tajawal';
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+/* ================= SCROLL ================= */
+
+.scroll-area {
+    overflow-y:auto;
+    flex-grow:1;
+    padding-left:6px;
+    padding-bottom:10px;
+}
+
+.scroll-area::-webkit-scrollbar {
+    width:5px;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+    background:var(--gold-light);
+    border-radius:10px;
+}
+
+/* ================= DASHBOARD ================= */
+
+.dashboard-header {
+    text-align:center;
+    margin-bottom:18px;
+    position:relative;
+}
+
+.dashboard-header .header-logo {
+    font-size:22px;
+    color:var(--gold);
+}
+
+.dashboard-header h1 {
+    font-size:23px;
+    font-weight:900;
+}
+
+.dashboard-header p {
+    font-size:13px;
+    color:var(--text-muted);
+}
+
+.logout-btn {
+    position:absolute;
+    top:0;
+    left:0;
+    background:var(--gold-light);
+    border:none;
+    color:var(--gold-dark);
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    cursor:pointer;
+}
+
+/* ================= WELCOME ================= */
+
+.welcome-msg {
+    background:linear-gradient(135deg,var(--gold-light),#fff);
+    border-radius:14px;
+    padding:13px 16px;
+    margin-bottom:15px;
+    font-size:14px;
+    font-weight:700;
+    text-align:center;
+    border:1px solid rgba(196,154,69,.2);
+}
+
+.welcome-msg span {
+    color:var(--gold-dark);
+}
+
+/* ================= CLOCK ================= */
+
+.clock-display {
+    text-align:center;
+    font-size:13px;
+    color:var(--text-muted);
+    font-weight:700;
+    margin-bottom:10px;
+    background:white;
+    padding:8px;
+    border-radius:10px;
+}
+
+.clock-display i {
+    color:var(--gold);
+}
+
+/* ================= PROGRESS ================= */
+
+.progress-bar-container {
+    background:var(--gold-light);
+    border-radius:20px;
+    height:10px;
+    margin-bottom:15px;
+    overflow:hidden;
+}
+
+.progress-bar {
+    height:100%;
+    background:linear-gradient(90deg,var(--gold),var(--gold-dark));
+    width:0%;
+    transition:.4s;
+}
+
+.progress-text {
+    text-align:center;
+    font-size:12px;
+    color:var(--text-muted);
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+/* ================= TASKS ================= */
+
+.task-list {
+    display:flex;
+    flex-direction:column;
+    gap:11px;
+    overflow-y:auto;
+    flex-grow:1;
+    padding-bottom:10px;
+}
+
+.task-item {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:white;
+    padding:13px 16px;
+    border-radius:15px;
+    box-shadow:0 2px 10px rgba(0,0,0,.03);
+    border:1.5px solid #f0e8d6;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.task-item:hover {
+    transform:translateY(-2px);
+    border-color:var(--gold);
+}
+
+.task-item.completed {
+    background:linear-gradient(135deg,#fffaf0,#fdf5e3);
+    border-color:var(--gold);
+}
+
+.task-item.completed .task-text {
+    color:var(--gold-dark);
+    text-decoration:line-through;
+}
+
+.task-right {
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.icon-wrapper {
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:var(--gold);
+    background:var(--primary-bg);
+    border:1.5px solid var(--gold-light);
+}
+
+.icon-wrapper.blue {
+    background:var(--blue);
+    color:white;
+}
+
+.task-cross {
+    font-size:20px;
+    color:#e0d5bd;
+}
+
+.task-item.completed .task-cross {
+    color:var(--gold-dark);
+}
+
+.task-text {
+    font-size:15px;
+    font-weight:700;
+}
+
+.task-time-hint {
+    display:block;
+    font-size:10px;
+    color:var(--text-muted);
+}
+
+/* ================= ADMIN ================= */
+
+.admin-title {
+    text-align:center;
+    margin-bottom:15px;
+}
+
+.admin-title .admin-icon {
+    width:65px;
+    height:65px;
+    margin:auto;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold-light),#fff);
+    color:var(--gold-dark);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    border:2px solid var(--gold-light);
+    box-shadow:0 8px 20px rgba(196,154,69,.2);
+}
+
+.admin-title h1 {
+    font-size:23px;
+    font-weight:900;
+    margin-top:8px;
+}
+
+.admin-title p {
+    font-size:13px;
+    color:var(--text-muted);
+}
+
+.users-list {
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    overflow-y:auto;
+    padding:5px;
+    flex-grow:1;
+}
+
+.user-card {
+    background:white;
+    border:1.5px solid #eadfc5;
+    border-radius:16px;
+    padding:14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.user-card:hover {
+    transform:translateY(-2px);
+    border-color:var(--gold);
+    box-shadow:0 5px 15px rgba(196,154,69,.15);
+}
+
+.user-info {
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.user-avatar {
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+}
+
+.user-card h3 {
+    font-size:15px;
+    font-weight:800;
+}
+
+.user-card small {
+    display:block;
+    color:var(--text-muted);
+    margin-top:3px;
+}
+
+.user-arrow {
+    color:var(--gold);
+}
+
+/* ================= ADMIN DETAILS ================= */
+
+.back-admin {
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:none;
+    background:var(--gold-light);
+    color:var(--gold-dark);
+    cursor:pointer;
+    margin-bottom:10px;
+}
+
+.profile-box {
+    background:linear-gradient(135deg,var(--gold-light),#fff);
+    border-radius:18px;
+    padding:18px;
+    margin-bottom:15px;
+    border:1px solid rgba(196,154,69,.2);
+}
+
+.profile-box h2 {
+    font-size:20px;
+    margin-bottom:12px;
+}
+
+.profile-row {
+    display:flex;
+    justify-content:space-between;
+    padding:7px 0;
+    border-bottom:1px solid rgba(196,154,69,.15);
+    font-size:13px;
+}
+
+.profile-row:last-child {
+    border-bottom:none;
+}
+
+.profile-row strong {
+    color:var(--gold-dark);
+}
+
+.stats {
+    display:flex;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.stat {
+    flex:1;
+    padding:15px 8px;
+    text-align:center;
+    border-radius:15px;
+    background:white;
+    border:1.5px solid #eadfc5;
+}
+
+.stat-number {
+    font-size:23px;
+    font-weight:900;
+    color:var(--gold-dark);
+}
+
+.stat-label {
+    font-size:11px;
+    color:var(--text-muted);
+}
+
+.admin-task {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:white;
+    padding:12px 14px;
+    border-radius:13px;
+    border:1.5px solid #eee4d0;
+    margin-bottom:8px;
+}
+
+.admin-task.done {
+    border-color:#b8e0c7;
+    background:#f2faf5;
+}
+
+.admin-task-name {
+    font-weight:700;
+    font-size:14px;
+}
+
+.status-done {
+    color:var(--green);
+    font-weight:800;
+    font-size:12px;
+}
+
+.status-not {
+    color:var(--danger);
+    font-weight:800;
+    font-size:12px;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    text-align:center;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid rgba(196,154,69,.15);
+    color:var(--text-muted);
+    font-size:11px;
+}
+
+.footer::before {
+    content:'✝';
+    display:block;
+    color:var(--gold);
+    font-size:14px;
+}
+
+/* ================= TOAST ================= */
+
+.toast {
+    position:fixed;
+    bottom:30px;
+    left:50%;
+    transform:translateX(-50%) translateY(120px);
+    background:var(--text-dark);
+    color:white;
+    padding:15px 28px;
+    border-radius:30px;
+    font-size:14px;
+    font-weight:700;
+    opacity:0;
+    transition:.4s;
+    z-index:9999;
+    max-width:90%;
+    text-align:center;
+}
+
+.toast.show {
+    transform:translateX(-50%) translateY(0);
+    opacity:1;
+}
+
+.toast.success {
+    background:var(--green);
+}
+
+.toast.error {
+    background:var(--danger);
+}
+
+/* ================= MODAL ================= */
+
+.modal-overlay {
+    position:fixed;
+    inset:0;
+    background:rgba(20,16,12,.75);
+    backdrop-filter:blur(6px);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:1000;
+    padding:20px;
+}
+
+.modal-overlay.show {
+    display:flex;
+}
+
+.modal-box {
+    background:var(--primary-bg);
+    border-radius:24px;
+    padding:30px 24px;
+    max-width:360px;
+    width:100%;
+    text-align:center;
+    box-shadow:0 30px 70px rgba(0,0,0,.6);
+}
+
+.modal-icon {
+    width:70px;
+    height:70px;
+    margin:auto auto 15px;
+    background:#fff4e0;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
+}
+
+.modal-box h3 {
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.modal-box p {
+    font-size:14px;
+    color:var(--text-muted);
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.modal-btn {
+    width:100%;
+    padding:13px;
+    background:linear-gradient(135deg,var(--gold),var(--gold-dark));
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-family:'Tajawal';
+    font-size:15px;
+    font-weight:800;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app-container">
+
+<!-- =====================================================
+     شاشة تسجيل الدخول والتسجيل
+===================================================== -->
+
+<div class="screen active" id="authScreen">
+
+    <div class="brand-header">
+
+        <div class="brand-icon">✝</div>
+
+        <h1>النوتة الروحية</h1>
+
+        <p>كنيسة السيدة العذراء والأنبا أبرام</p>
+
+    </div>
+
+    <div class="tabs">
+
+        <button
+            class="tab-btn active"
+            id="tabLogin"
+            onclick="switchTab('login')">
+            تسجيل الدخول
+        </button>
+
+        <button
+            class="tab-btn"
+            id="tabRegister"
+            onclick="switchTab('register')">
+            إنشاء حساب
+        </button>
+
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <div class="scroll-area" id="loginFormWrapper">
+
+        <form onsubmit="handleLogin(event)">
+
+            <div class="form-group">
+
+                <label>الاسم</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="loginName"
+                        placeholder="أدخل اسمك"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>كلمة المرور</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="••••••••"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="btn">
+
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                تسجيل الدخول
+
+            </button>
+
+
+            <p style="text-align:center;margin-top:18px;font-size:13px;color:var(--text-muted);">
+
+                ليس لديك حساب؟
+
+                <a
+                    href="#"
+                    onclick="switchTab('register');return false;"
+                    style="color:var(--gold-dark);font-weight:800;text-decoration:none;">
+
+                    أنشئ حساباً الآن
+
+                </a>
+
+            </p>
+
+        </form>
+
+    </div>
+
+
+    <!-- REGISTER -->
+
+    <div
+        class="scroll-area"
+        id="registerFormWrapper"
+        style="display:none;">
+
+        <form onsubmit="handleRegister(event)">
+
+            <div class="form-group">
+
+                <label>الاسم بالكامل</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-user"></i>
+
+                    <input
+                        type="text"
+                        id="regName"
+                        placeholder="الاسم الثلاثي"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>رقم التليفون</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-phone"></i>
+
+                    <input
+                        type="tel"
+                        id="regPhone"
+                        placeholder="01xxxxxxxxx"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>رقم العمارة</label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-building"></i>
+
+                        <input
+                            type="text"
+                            id="regBuilding"
+                            placeholder="15"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>رقم الشقة</label>
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-door-open"></i>
+
+                        <input
+                            type="text"
+                            id="regApartment"
+                            placeholder="4"
+                            required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>الحي السكني</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    <select id="regDistrict" required>
+
+                        <option value="">اختر الحي</option>
+
+                        <option>الحي الأول</option>
+                        <option>الحي الثاني</option>
+                        <option>الحي الثالث</option>
+                        <option>الحي الرابع</option>
+                        <option>الحي الخامس</option>
+                        <option>الحي السادس</option>
+                        <option>الحي السابع</option>
+                        <option>الحي الثامن</option>
+                        <option>الحي التاسع</option>
+                        <option>الحي العاشر</option>
+                        <option>الحي الحادي عشر</option>
+                        <option>الحي الثاني عشر</option>
+                        <option>منطقة إسكان الشباب</option>
+                        <option>منطقة إسكان المستقبل</option>
+                        <option>أخرى</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>اسم الخادم</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-hands-praying"></i>
+
+                    <input
+                        type="text"
+                        id="regServant"
+                        placeholder="اسم الخادم المسؤول"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>الصف</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-graduation-cap"></i>
+
+                    <select id="regGrade" required>
+
+                        <option value="">اختر الصف</option>
+
+                        <option>أولى إعدادي</option>
+                        <option>ثانية إعدادي</option>
+                        <option>ثالثة إعدادي</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>كلمة المرور</label>
+
+                <div class="input-wrapper">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <input
+                        type="password"
+                        id="regPassword"
+                        placeholder="أنشئ كلمة مرور قوية"
+                        minlength="6"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <button type="submit" class="btn">
+
+                <i class="fa-solid fa-user-plus"></i>
+
+                إنشاء الحساب
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     شاشة النجاح
+===================================================== -->
+
+<div class="screen" id="successScreen">
+
+    <div style="flex-grow:1;display:flex;flex-direction:column;justify-content:center;">
+
+        <div class="profile-box" style="text-align:center;">
+
+            <div class="admin-icon"
+                 style="width:65px;height:65px;margin:auto;border-radius:50%;background:var(--gold);color:white;display:flex;align-items:center;justify-content:center;font-size:28px;">
+
+                <i class="fa-solid fa-check"></i>
+
+            </div>
+
+            <h2 style="margin-top:12px;color:var(--green);">
+
+                تم إنشاء حسابك بنجاح 🎉
+
+            </h2>
+
+            <p style="color:var(--text-muted);margin-top:8px;">
+
+                أهلاً بك في النوتة الروحية
+
+            </p>
+
+        </div>
+
+
+        <button
+            class="btn btn-success"
+            onclick="goToDashboard()">
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            اذهب إلى النوتة الروحية
+
+        </button>
+
+
+        <button
+            class="btn-outline"
+            onclick="backToLogin()">
+
+            <i class="fa-solid fa-right-to-bracket"></i>
+
+            رجوع لتسجيل الدخول
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     شاشة المخدوم
+===================================================== -->
+
+<div class="screen" id="dashboardScreen">
+
+    <header class="dashboard-header">
+
+        <button
+            class="logout-btn"
+            onclick="handleLogout()">
+
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+        </button>
+
+        <div class="header-logo">✝</div>
+
+        <h1>النوتة الروحية</h1>
+
+        <p>جدولك الروحي اليومي</p>
+
+    </header>
+
+
+    <div class="welcome-msg" id="welcomeMsg">
+
+        مرحباً بك 👋
+
+    </div>
+
+
+    <div class="clock-display">
+
+        <i class="fa-solid fa-clock"></i>
+
+        الساعة الآن:
+
+        <span id="currentTime">--:--</span>
+
+    </div>
+
+
+    <div
+        class="progress-text"
+        id="progressText">
+
+        0 من 9 مهام مكتملة
+
+    </div>
+
+
+    <div class="progress-bar-container">
+
+        <div
+            class="progress-bar"
+            id="progressBar">
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="task-list"
+        id="taskList">
+
+    </div>
+
+
+    <div class="footer">
+
+        © الكنيسة القبطية الأرثوذكسية
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     شاشة الأدمن - كل المخدومين
+===================================================== -->
+
+<div class="screen" id="adminScreen">
+
+    <div class="admin-title">
+
+        <div class="admin-icon">
+
+            <i class="fa-solid fa-user-shield"></i>
+
+        </div>
+
+        <h1>لوحة تحكم الخادم</h1>
+
+        <p>جميع المخدومين المسجلين</p>
+
+    </div>
+
+
+    <div
+        class="users-list"
+        id="usersList">
+
+    </div>
+
+
+    <button
+        class="btn-outline"
+        onclick="handleLogout()">
+
+        <i class="fa-solid fa-right-from-bracket"></i>
+
+        تسجيل الخروج
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     تفاصيل مخدوم
+===================================================== -->
+
+<div class="screen" id="adminDetailsScreen">
+
+    <button
+        class="back-admin"
+        onclick="showAdminUsers()">
+
+        <i class="fa-solid fa-arrow-right"></i>
+
+    </button>
+
+
+    <div class="scroll-area">
+
+        <div
+            class="profile-box"
+            id="studentProfile">
+
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    id="doneCount">
+
+                    0
+
+                </div>
+
+                <div class="stat-label">
+
+                    تم عملها
+
+                </div>
+
+            </div>
+
+
+            <div class="stat">
+
+                <div
+                    class="stat-number"
+                    id="notDoneCount">
+
+                    0
+
+                </div>
+
+                <div class="stat-label">
+
+                    لم تُعمل
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <h3
+            style="margin-bottom:10px;font-size:16px;">
+
+            حالة المهام
+
+        </h3>
+
+
+        <div
+            id="adminTasks">
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="btn-outline"
+        onclick="showAdminUsers()">
+
+        <i class="fa-solid fa-users"></i>
+
+        رجوع للمخدومين
+
+    </button>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     Modal
+===================================================== -->
+
+<div
+    class="modal-overlay"
+    id="timeoutModal">
+
+    <div class="modal-box">
+
+        <div class="modal-icon">
+
+            ⏰
+
+        </div>
+
+        <h3>انتهى الوقت!</h3>
+
+        <p id="modalMessage">
+
+            الوقت المخصص لهذه المهمة خلص.
+
+        </p>
+
+        <button
+            class="modal-btn"
+            onclick="closeModal()">
+
+            <i class="fa-solid fa-check"></i>
+
+            تمام، هكمل
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div
+    class="toast"
+    id="toast">
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   المهام
+============================================================ */
+
+const TASKS = [
+
+    {
+        name:'صلاة باكر',
+        icon:'fa-church',
+        blue:false,
+        start:6,
+        end:9
+    },
+
+    {
+        name:'قراءة الكتاب المقدس',
+        icon:'fa-book-bible',
+        blue:false,
+        start:9,
+        end:12
+    },
+
+    {
+        name:'آية اليوم',
+        icon:'fa-book-open',
+        blue:false,
+        start:12,
+        end:15
+    },
+
+    {
+        name:'صلاة يسوع',
+        icon:'fa-hands-praying',
+        blue:true,
+        start:15,
+        end:17
+    },
+
+    {
+        name:'الخلوة اليومية',
+        icon:'fa-user',
+        blue:true,
+        start:17,
+        end:19
+    },
+
+    {
+        name:'صلاة النوم',
+        icon:'fa-moon',
+        blue:false,
+        start:19,
+        end:22
+    },
+
+    {
+        name:'الاعتراف',
+        icon:'fa-cross',
+        blue:false,
+        start:10,
+        end:20
+    },
+
+    {
+        name:'التناول',
+        icon:'fa-wine-glass',
+        blue:true,
+        start:5,
+        end:11
+    },
+
+    {
+        name:'مدارس الأحد',
+        icon:'fa-chalkboard-user',
+        blue:false,
+        start:8,
+        end:13
+    }
+
+];
+
+
+/* ============================================================
+   بيانات الأدمن
+============================================================ */
+
+const ADMIN_NAME = "admin1234";
+const ADMIN_PASSWORD = "admin1234321";
+
+
+let currentStudentIndex = null;
+let checkInterval = null;
+
+
+/* ============================================================
+   التنقل
+============================================================ */
+
+function showScreen(id) {
+
+    document
+        .querySelectorAll('.screen')
+        .forEach(s => s.classList.remove('active'));
+
+    document
+        .getElementById(id)
+        .classList.add('active');
+}
+
+
+/* ============================================================
+   Tabs
+============================================================ */
+
+function switchTab(tab) {
+
+    const loginTab =
+        document.getElementById('tabLogin');
+
+    const registerTab =
+        document.getElementById('tabRegister');
+
+    const loginForm =
+        document.getElementById('loginFormWrapper');
+
+    const registerForm =
+        document.getElementById('registerFormWrapper');
+
+
+    if(tab === 'login') {
+
+        loginTab.classList.add('active');
+        registerTab.classList.remove('active');
+
+        loginForm.style.display = 'block';
+        registerForm.style.display = 'none';
+
+    } else {
+
+        registerTab.classList.add('active');
+        loginTab.classList.remove('active');
+
+        loginForm.style.display = 'none';
+        registerForm.style.display = 'block';
+
+    }
+
+}
+
+
+/* ============================================================
+   Toast
+============================================================ */
+
+function showToast(msg,type='') {
+
+    const toast =
+        document.getElementById('toast');
+
+    toast.textContent = msg;
+
+    toast.className =
+        'toast show ' + type;
+
+    clearTimeout(toast._timer);
+
+    toast._timer =
+        setTimeout(() => {
+
+            toast.classList.remove('show');
+
+        },3000);
+
+}
+
+
+/* ============================================================
+   الوقت
+============================================================ */
+
+function formatTime(h) {
+
+    const period =
+        h >= 12 ? 'م' : 'ص';
+
+    const hh =
+        h % 12 || 12;
+
+    return `${hh} ${period}`;
+
+}
+
+
+/* ============================================================
+   بناء المهام
+============================================================ */
+
+function buildTaskList() {
+
+    const list =
+        document.getElementById('taskList');
+
+    list.innerHTML = '';
+
+
+    TASKS.forEach((task,index) => {
+
+        const item =
+            document.createElement('div');
+
+        item.className = 'task-item';
+
+        item.dataset.index = index;
+
+        item.onclick =
+            () => toggleTask(item,index);
+
+
+        item.innerHTML = `
+
+            <div class="task-right">
+
+                <div class="icon-wrapper ${task.blue ? 'blue':''}">
+
+                    <i class="fa-solid ${task.icon}"></i>
+
+                </div>
+
+                <div>
+
+                    <span class="task-text">
+                        ${task.name}
+                    </span>
+
+                    <span class="task-time-hint">
+                        من ${formatTime(task.start)}
+                        إلى ${formatTime(task.end)}
+                    </span>
+
+                </div>
+
+            </div>
+
+            <i class="fa-solid fa-cross task-cross"></i>
+
+        `;
+
+
+        list.appendChild(item);
+
+    });
+
+
+    loadTasks();
+
+    updateExpiredTasks();
+
+}
+
+
+/* ============================================================
+   معرفة المهمة الحالية
+============================================================ */
+
+function updateExpiredTasks() {
+
+    const now =
+        new Date();
+
+    const nowMin =
+        now.getHours()*60 +
+        now.getMinutes();
+
+
+    document
+        .querySelectorAll('.task-item')
+        .forEach((item,index) => {
+
+            const task =
+                TASKS[index];
+
+            if(!task) return;
+
+
+            const endMin =
+                task.end * 60;
+
+
+            if(nowMin >= endMin) {
+
+                item.classList.remove('completed');
+
+                item.dataset.expired = 'true';
+
+            } else {
+
+                item.dataset.expired = 'false';
+
+            }
+
+        });
+
+
+    saveTasks();
+
+    updateProgress();
+
+}
+
+
+/* ============================================================
+   الضغط على المهمة
+============================================================ */
+
+function toggleTask(item,index) {
+
+    if(item.dataset.expired === 'true') {
+
+        let nextTask = '';
+
+        for(
+            let j=index+1;
+            j<TASKS.length;
+            j++
+        ) {
+
+            const next =
+                document.querySelectorAll('.task-item')[j];
+
+            if(
+                next &&
+                next.dataset.expired === 'false'
+            ) {
+
+                nextTask =
+                    TASKS[j].name;
+
+                break;
+
+            }
+
+        }
+
+
+        let message =
+            `الوقت المخصص لمهمة "<b>${TASKS[index].name}</b>" خلص.<br><br>`;
+
+
+        if(nextTask) {
+
+            message +=
+                `خش على المهمة اللي بعدها:<br>
+                <b style="color:var(--gold-dark)">
+                ${nextTask}
+                </b>`;
+
+        } else {
+
+            message +=
+                `خلصت كل مهام اليوم 🌟`;
+
+        }
+
+
+        openModal(message);
+
+        return;
+
+    }
+
+
+    item.classList.toggle('completed');
+
+    saveTasks();
+
+    updateProgress();
+
+
+    if(item.classList.contains('completed')) {
+
+        showToast(
+            'تم التعليم ✝',
+            'success'
+        );
+
+    }
+
+}
+
+
+/* ============================================================
+   حفظ مهام المستخدم الحالي
+============================================================ */
+
+function getCurrentUser() {
+
+    const currentName =
+        localStorage.getItem('userName');
+
+    if(!currentName) return null;
+
+
+    const users =
+        JSON.parse(
+            localStorage.getItem('users') || '[]'
+        );
+
+
+    return users.find(
+        u => u.name === currentName
+    ) || null;
+
+}
+
+
+function saveTasks() {
+
+    const user =
+        getCurrentUser();
+
+    if(!user) return;
+
+
+    const completed = [];
+
+
+    document
+        .querySelectorAll('.task-item')
+        .forEach((item,index) => {
+
+            if(
+                item.classList.contains('completed') &&
+                item.dataset.expired !== 'true'
+            ) {
+
+                completed.push(index);
+
+            }
+
+        });
+
+
+    user.completedTasks =
+        completed;
+
+
+    let users =
+        JSON.parse(
+            localStorage.getItem('users') || '[]'
+        );
+
+
+    users =
+        users.map(u =>
+            u.name === user.name
+                ? user
+                : u
+        );
+
+
+    localStorage.setItem(
+        'users',
+        JSON.stringify(users)
+    );
+
+}
+
+
+/* ============================================================
+   تحميل المهام
+============================================================ */
+
+function loadTasks() {
+
+    const user =
+        getCurrentUser();
+
+    const saved =
+        user?.completedTasks || [];
+
+
+    document
+        .querySelectorAll('.task-item')
+        .forEach((item,index) => {
+
+            if(saved.includes(index)) {
+
+                item.classList.add('completed');
+
+            } else {
+
+                item.classList.remove('completed');
+
+            }
+
+        });
+
+
+    updateProgress();
+
+}
+
+
+/* ============================================================
+   التقدم
+============================================================ */
+
+function updateProgress() {
+
+    const total =
+        document.querySelectorAll('.task-item').length;
+
+    const done =
+        document.querySelectorAll(
+            '.task-item.completed'
+        ).length;
+
+
+    const percent =
+        total
+            ? (done / total) * 100
+            : 0;
+
+
+    const bar =
+        document.getElementById('progressBar');
+
+    const text =
+        document.getElementById('progressText');
+
+
+    if(bar)
+        bar.style.width =
+            percent + '%';
+
+
+    if(text)
+        text.textContent =
+            `${done} من ${total} مهام مكتملة`;
+
+}
+
+
+/* ============================================================
+   الساعة
+============================================================ */
+
+function updateClock() {
+
+    const now =
+        new Date();
+
+    const h =
+        now.getHours() % 12 || 12;
+
+    const m =
+        String(
+            now.getMinutes()
+        ).padStart(2,'0');
+
+    const p =
+        now.getHours() >= 12
+            ? 'م'
+            : 'ص';
+
+
+    const el =
+        document.getElementById('currentTime');
+
+
+    if(el)
+        el.textContent =
+            `${h}:${m} ${p}`;
+
+}
+
+
+/* ============================================================
+   الفاحص
+============================================================ */
+
+function startTimeChecker() {
+
+    if(checkInterval)
+        clearInterval(checkInterval);
+
+
+    updateClock();
+
+
+    checkInterval =
+        setInterval(() => {
+
+            updateClock();
+
+            updateExpiredTasks();
+
+        },30000);
+
+}
+
+
+/* ============================================================
+   إنشاء الحساب
+============================================================ */
+
+function handleRegister(e) {
+
+    e.preventDefault();
+
+
+    const data = {
+
+        name:
+            document.getElementById('regName').value.trim(),
+
+        phone:
+            document.getElementById('regPhone').value.trim(),
+
+        building:
+            document.getElementById('regBuilding').value.trim(),
+
+        apartment:
+            document.getElementById('regApartment').value.trim(),
+
+        district:
+            document.getElementById('regDistrict').value,
+
+        servant:
+            document.getElementById('regServant').value.trim(),
+
+        grade:
+            document.getElementById('regGrade').value,
+
+        password:
+            document.getElementById('regPassword').value,
+
+        completedTasks: []
+
+    };
+
+
+    for(const key in data) {
+
+        if(
+            key !== 'completedTasks' &&
+            !data[key]
+        ) {
+
+            showToast(
+                'من فضلك املأ جميع البيانات',
+                'error'
+            );
+
+            return;
+
+        }
+
+    }
+
+
+    if(!/^01[0-9]{9}$/.test(data.phone)) {
+
+        showToast(
+            'رقم التليفون غير صحيح',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    if(data.password.length < 6) {
+
+        showToast(
+            'كلمة المرور 6 أحرف على الأقل',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    let users =
+        JSON.parse(
+            localStorage.getItem('users') || '[]'
+        );
+
+
+    const exists =
+        users.some(
+            u => u.name === data.name
+        );
+
+
+    if(exists) {
+
+        showToast(
+            'الاسم ده مسجل بالفعل',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    users.push(data);
+
+
+    localStorage.setItem(
+        'users',
+        JSON.stringify(users)
+    );
+
+
+    localStorage.setItem(
+        'userName',
+        data.name
+    );
+
+
+    showToast(
+        'تم إنشاء الحساب بنجاح ✝',
+        'success'
+    );
+
+
+    setTimeout(() => {
+
+        showScreen('successScreen');
+
+    },500);
+
+}
+
+
+/* ============================================================
+   تسجيل الدخول
+============================================================ */
+
+function handleLogin(e) {
+
+    e.preventDefault();
+
+
+    const name =
+        document
+            .getElementById('loginName')
+            .value
+            .trim();
+
+
+    const password =
+        document
+            .getElementById('loginPassword')
+            .value;
+
+
+    /* =========================
+       دخول الأدمن
+    ========================= */
+
+    if(
+        name === ADMIN_NAME &&
+        password === ADMIN_PASSWORD
+    ) {
+
+        localStorage.setItem(
+            'adminLoggedIn',
+            'true'
+        );
+
+
+        showToast(
+            'تم تسجيل دخول الأدمن 🔐',
+            'success'
+        );
+
+
+        setTimeout(() => {
+
+            buildAdminUsers();
+
+            showScreen('adminScreen');
+
+        },400);
+
+
+        return;
+
+    }
+
+
+    /* =========================
+       دخول المخدوم
+    ========================= */
+
+    const users =
+        JSON.parse(
+            localStorage.getItem('users') || '[]'
+        );
+
+
+    const user =
+        users.find(
+            u =>
+                u.name === name &&
+                u.password === password
+        );
+
+
+    if(!user) {
+
+        showToast(
+            'الاسم أو كلمة المرور غير صحيحة',
+            'error'
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        'userName',
+        user.name
+    );
+
+
+    document
+        .getElementById('welcomeMsg')
+        .innerHTML =
+        `مرحباً بك يا <span>${user.name}</span> 👋`;
+
+
+    showToast(
+        'تم تسجيل الدخول ✝',
+        'success'
+    );
+
+
+    setTimeout(() => {
+
+        showScreen('dashboardScreen');
+
+        buildTaskList();
+
+        startTimeChecker();
+
+    },400);
+
+}
+
+
+/* ============================================================
+   الدخول للنوتة
+============================================================ */
+
+function goToDashboard() {
+
+    const name =
+        localStorage.getItem('userName') ||
+        'صديقي';
+
+
+    document
+        .getElementById('welcomeMsg')
+        .innerHTML =
+        `مرحباً بك يا <span>${name}</span> 👋`;
+
+
+    showScreen('dashboardScreen');
+
+    buildTaskList();
+
+    startTimeChecker();
+
+}
+
+
+/* ============================================================
+   الأدمن - عرض كل المخدومين
+============================================================ */
+
+function buildAdminUsers() {
+
+    const list =
+        document.getElementById('usersList');
+
+    list.innerHTML = '';
+
+
+    const users =
+        JSON.parse(
+            localStorage.getItem('users') || '[]'
+        );
+
+
+    if(users.length === 0) {
+
+        list.innerHTML = `
+
+            <div
+                style="
+                text-align:center;
+                padding:40px 10px;
+                color:var(--text-muted);
+                ">
+
+                <i
+                    class="fa-solid fa-users"
+                    style="
+                    font-size:45px;
+                    color:var(--gold);
+                    margin-bottom:15px;
+                    ">
+                </i>
+
+                <h3>
+                    لا يوجد مخدومين حتى الآن
+                </h3>
+
+                <p style="margin-top:8px;font-size:13px;">
+                    عندما يقوم أحد بإنشاء حساب
+                    سيظهر هنا.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    users.forEach((user,index) => {
+
+        const completed =
+            user.completedTasks
+                ? user.completedTasks.length
+                : 0;
+
+
+        const card =
+            document.createElement('div');
+
+
+        card.className =
+            'user-card';
+
+
+        card.onclick =
+            () => openStudent(index);
+
+
+        card.innerHTML = `
+
+            <div class="user-info">
+
+                <div class="user-avatar">
+
+                    <i class="fa-solid fa-user"></i>
+
+                </div>
+
+                <div>
+
+                    <h3>
+                        ${escapeHTML(user.name)}
+                    </h3>
+
+                    <small>
+                        ${escapeHTML(user.grade)}
+                        •
+                        ${completed} / ${TASKS.length} مهام
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="user-arrow">
+
+                <i class="fa-solid fa-chevron-left"></i>
+
+            </div>
+
+        `;
+
+
+        list.appendChild(card);
+
+    });
+
+}
+
+
+/* ============================================================
+   فتح تفاصيل المخدوم
+============================================================ */
+
+function openStudent(index) {
+
+    currentStudentIndex =
+        index;
+
+
+    const users =
+        JSON.parse(
+            localStorage.getItem('users') || '[]'
+        );
+
+
+    const user =
+        users[index];
+
+
+    if(!user)
+        return;
+
+
+    const completed =
+        user.completedTasks || [];
+
+
+    document
+        .getElementById('studentProfile')
+        .innerHTML = `
+
+            <h2>
+
+                <i
+                    class="fa-solid fa-user"
+                    style="color:var(--gold);">
+                </i>
+
+                ${escapeHTML(user.name)}
+
+            </h2>
+
+
+            <div class="profile-row">
+
+                <span>رقم التليفون</span>
+
+                <strong>
+                    ${escapeHTML(user.phone)}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <span>الحي</span>
+
+                <strong>
+                    ${escapeHTML(user.district)}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <span>العمارة</span>
+
+                <strong>
+                    ${escapeHTML(user.building)}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <span>الشقة</span>
+
+                <strong>
+                    ${escapeHTML(user.apartment)}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <span>الخادم</span>
+
+                <strong>
+                    ${escapeHTML(user.servant)}
+                </strong>
+
+            </div>
+
+
+            <div class="profile-row">
+
+                <span>الصف</span>
+
+                <strong>
+                    ${escapeHTML(user.grade)}
+                </strong>
+
+            </div>
+
+        `;
+
+
+    const done =
+        completed.length;
+
+
+    const notDone =
+        TASKS.length - done;
+
+
+    document
+        .getElementById('doneCount')
+        .textContent =
+        done;
+
+
+    document
+        .getElementById('notDoneCount')
+        .textContent =
+        notDone;
+
+
+    const taskContainer =
+        document.getElementById('adminTasks');
+
+
+    taskContainer.innerHTML = '';
+
+
+    TASKS.forEach((task,index) => {
+
+        const isDone =
+            completed.includes(index);
+
+
+        const div =
+            document.createElement('div');
+
+
+        div.className =
+            'admin-task ' +
+            (isDone ? 'done' : '');
+
+
+        div.innerHTML = `
+
+            <div>
+
+                <div class="admin-task-name">
+
+                    <i
+                        class="fa-solid ${task.icon}"
+                        style="color:var(--gold);margin-left:7px;">
+                    </i>
+
+                    ${escapeHTML(task.name)}
+
+                </div>
+
+                <small
+                    style="
+                    color:var(--text-muted);
+                    font-size:10px;
+                    ">
+
+                    من ${formatTime(task.start)}
+                    إلى ${formatTime(task.end)}
+
+                </small>
+
+            </div>
+
+
+            ${
+                isDone
+
+                ? `
+                    <span class="status-done">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        عملها
+
+                    </span>
+                `
+
+                : `
+                    <span class="status-not">
+
+                        <i class="fa-solid fa-circle-xmark"></i>
+
+                        لم يعملها
+
+                    </span>
+                `
+            }
+
+        `;
+
+
+        taskContainer.appendChild(div);
+
+    });
+
+
+    showScreen('adminDetailsScreen');
+
+}
+
+
+/* ============================================================
+   رجوع لقائمة المخدومين
+============================================================ */
+
+function showAdminUsers() {
+
+    buildAdminUsers();
+
+    showScreen('adminScreen');
+
+}
+
+
+/* ============================================================
+   حماية النصوص
+============================================================ */
+
+function escapeHTML(text) {
+
+    if(text === undefined || text === null)
+        return '';
+
+
+    return String(text)
+        .replace(/&/g,'&amp;')
+        .replace(/</g,'&lt;')
+        .replace(/>/g,'&gt;')
+        .replace(/"/g,'&quot;')
+        .replace(/'/g,'&#039;');
+
+}
+
+
+/* ============================================================
+   Logout
+============================================================ */
+
+function handleLogout() {
+
+    localStorage.removeItem('userName');
+
+    localStorage.removeItem('adminLoggedIn');
+
+
+    if(checkInterval)
+        clearInterval(checkInterval);
+
+
+    document
+        .querySelectorAll('form')
+        .forEach(
+            form => form.reset()
+        );
+
+
+    switchTab('login');
+
+    showScreen('authScreen');
+
+
+    showToast(
+        'تم تسجيل الخروج'
+    );
+
+}
+
+
+/* ============================================================
+   Modal
+============================================================ */
+
+function openModal(message) {
+
+    if(message) {
+
+        document
+            .getElementById('modalMessage')
+            .innerHTML =
+            message;
+
+    }
+
+
+    document
+        .getElementById('timeoutModal')
+        .classList.add('show');
+
+}
+
+
+function closeModal() {
+
+    document
+        .getElementById('timeoutModal')
+        .classList.remove('show');
+
+}
+
+
+/* ============================================================
+   الرجوع لتسجيل الدخول
+============================================================ */
+
+function backToLogin() {
+
+    switchTab('login');
+
+    showScreen('authScreen');
+
+}
+
+
+/* ============================================================
+   عند فتح الموقع
+============================================================ */
+
+window.addEventListener('load',() => {
+
+    const admin =
+        localStorage.getItem('adminLoggedIn');
+
+
+    if(admin === 'true') {
+
+        buildAdminUsers();
+
+        showScreen('adminScreen');
+
+        return;
+
+    }
+
+
+    const saved =
+        localStorage.getItem('userName');
+
+
+    if(saved) {
+
+        document
+            .getElementById('welcomeMsg')
+            .innerHTML =
+            `مرحباً بك يا <span>${saved}</span> 👋`;
+
+
+        showScreen('dashboardScreen');
+
+        buildTaskList();
+
+        startTimeChecker();
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
