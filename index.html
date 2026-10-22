@@ -33,7 +33,7 @@ h1{font-size:28px;line-height:1.4;color:var(--forest);margin:0 0 5px}
 .form-group input,.form-group select{width:100%;padding:12px 14px;border:1px solid #ddd9ce;border-radius:12px;background:#fffefa;outline:none;transition:.2s;color:var(--ink)}
 .form-group input:focus,.form-group select:focus{border-color:var(--forest2);box-shadow:0 0 0 3px #24584915}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn{width:100%;border:0;border-radius:12px;padding:12px 15px;background:var(--forest);color:white;font-weight:800;font-size:14px;transition:.2s;margin-top:7px}
+.btn{width:100%;border:0;border-radius:12px;padding:12px 15px;background:var(--forest);color:white;font-weight:800;font-size:14px;transition:.2s;margin-top:7px;touch-action:manipulation;position:relative;z-index:2; -webkit-tap-highlight-color:transparent}
 .btn:hover{background:#0f3028;transform:translateY(-1px)}
 .btn-light{background:#edf2ec;color:var(--forest);border:1px solid #dbe6dc}.btn-light:hover{background:#dfeae1}
 .switch{font-size:12px;color:var(--muted);text-align:center;margin-top:20px}.link{color:var(--forest);font-weight:800;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
@@ -96,7 +96,7 @@ h1{font-size:28px;line-height:1.4;color:var(--forest);margin:0 0 5px}
       <div class="form-group"><label for="regServant">اسم الخادم</label><input id="regServant" placeholder="اسم الخادم المسؤول"></div>
       <div class="form-group"><label for="regGrade">الصف الدراسي</label><select id="regGrade"><option value="">اختر الصف</option><option>أولى إعدادي</option><option>ثانية إعدادي</option><option>ثالثة إعدادي</option></select></div>
       <div class="form-group"><label for="regPassword">كلمة المرور</label><input id="regPassword" type="password" autocomplete="new-password" placeholder="أنشئ كلمة مرور"></div>
-      <button class="btn" onclick="register()">إنشاء الحساب</button>
+      <button class="btn" id="registerButton" type="button">إنشاء الحساب</button>
       <div class="switch">عندك حساب بالفعل؟ <span class="link" onclick="showLogin()">سجّل الدخول</span></div>
     </section>
     <section class="dashboard hidden" id="spiritualNotePage">
@@ -130,13 +130,48 @@ function updateDateLabel(){$('todayDate').textContent='اليوم: '+new Intl.Da
 let renderedDay=currentDay();
 function showNote(user){$('loginPage').classList.add('hidden');$('registerPage').classList.add('hidden');$('visualPanel').classList.add('hidden');$('spiritualNotePage').classList.remove('hidden');$('welcomeName').textContent=`أهلاً يا ${user.name||'صديقنا'} ❤️`;updateDateLabel();renderedDay=currentDay();renderTasks()}
 function login(){clearError('loginError');const phone=$('loginPhone').value.trim(),password=$('loginPassword').value;if(!phone||!password){setError('loginError','من فضلك اكتب رقم التليفون وكلمة المرور.');return}const users=safeRead('users',[]);const user=users.find(u=>u.phone===phone&&u.password===password);if(!user){setError('loginError','البيانات مش مطابقة. راجعها أو جرّب الدخول التجريبي.');return}localStorage.setItem('currentUser',JSON.stringify(user));showNote(user)}
-function register(){clearError('registerError');const fields={name:'regName',phone:'regPhone',building:'regBuilding',apartment:'regApartment',district:'regDistrict',servant:'regServant',grade:'regGrade',password:'regPassword'};const user={};for(const [key,id] of Object.entries(fields))user[key]=$(id).value.trim();if(Object.values(user).some(v=>!v)){setError('registerError','من فضلك كمّل كل البيانات الأول.');return}if(!/^\d{11}$/.test(user.phone)){setError('registerError','رقم التليفون لازم يكون 11 رقم.');return}const users=safeRead('users',[]);if(users.some(u=>u.phone===user.phone)){setError('registerError','الرقم ده مسجّل قبل كده. جرّب تسجيل الدخول.');return}users.push(user);localStorage.setItem('users',JSON.stringify(users));$('loginPhone').value=user.phone;$('loginPassword').value='';showLogin();setError('loginError','تم إنشاء الحساب على هذا الجهاز. سجّل الدخول دلوقتي.')}
+function register(){
+  clearError('registerError');
+  const fields={name:'regName',phone:'regPhone',building:'regBuilding',apartment:'regApartment',district:'regDistrict',servant:'regServant',grade:'regGrade',password:'regPassword'};
+  const user={};
+  for(const [key,id] of Object.entries(fields)){
+    const el=$(id);
+    user[key]=el ? String(el.value||'').trim() : '';
+  }
+  // بعض لوحات المفاتيح العربية تكتب الأرقام بصيغة عربية؛ حوّلها للأرقام القياسية.
+  user.phone=user.phone.replace(/[٠-٩۰-۹]/g,ch=>{
+    const arabic='٠١٢٣٤٥٦٧٨٩', persian='۰۱۲۳۴۵۶۷۸۹';
+    return String(arabic.indexOf(ch)>=0?arabic.indexOf(ch):persian.indexOf(ch));
+  });
+  if(Object.values(user).some(v=>!v)){setError('registerError','من فضلك كمّل كل البيانات الأول.');$('registerError').scrollIntoView({behavior:'smooth',block:'center'});return}
+  if(!/^\d{11}$/.test(user.phone)){setError('registerError','رقم التليفون لازم يكون 11 رقم.');$('registerError').scrollIntoView({behavior:'smooth',block:'center'});return}
+  let users=safeRead('users',[]);
+  if(!Array.isArray(users))users=[];
+  if(users.some(u=>u.phone===user.phone)){setError('registerError','الرقم ده مسجّل قبل كده. جرّب تسجيل الدخول.');$('registerError').scrollIntoView({behavior:'smooth',block:'center'});return}
+  try{
+    users.push(user);
+    localStorage.setItem('users',JSON.stringify(users));
+    $('loginPhone').value=user.phone;
+    $('loginPassword').value='';
+    showLogin();
+    setError('loginError','تم إنشاء الحساب على هذا الجهاز. سجّل الدخول دلوقتي.');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(e){
+    setError('registerError','المتصفح منع حفظ الحساب. افتح الموقع في Chrome أو Safari وجرب تاني.');
+    $('registerError').scrollIntoView({behavior:'smooth',block:'center'});
+  }
+}
 function renderTasks(){const done=getDone();$('taskList').innerHTML='';tasks.forEach(task=>{const isDone=done.includes(task.id);const button=document.createElement('button');button.type='button';button.className=`task${isDone?' done':''}`;button.setAttribute('aria-pressed',String(isDone));button.innerHTML=`<div class="task-top"><span class="task-icon">${task.icon}</span><span class="task-check">${isDone?'✓':'○'}</span></div><span class="task-name"></span>`;button.querySelector('.task-name').textContent=task.name;button.addEventListener('click',()=>toggleTask(task.id));$('taskList').appendChild(button)});const count=done.filter(id=>tasks.some(task=>task.id===id)).length,percent=Math.round(count/tasks.length*100);$('progressRing').style.setProperty('--progress',percent+'%');$('progressNumber').textContent=percent+'%';$('taskCount').textContent=`${count} من ${tasks.length} مكتملة`;$('welcomeMessage').textContent=count===tasks.length?'برافو عليك! كملت خطوات النهارده، ربنا يفرّح قلبك.':count===0?'ابدأ باللي تقدر عليه النهارده.':`أنجزت ${count} خطوات؛ كمّل على مهلك وربنا يقوّيك.`}
 function toggleTask(id){const data=safeRead('spiritualProgress',{});const done=data[currentDay()]||[];data[currentDay()]=done.includes(id)?done.filter(x=>x!==id):[...done,id];localStorage.setItem('spiritualProgress',JSON.stringify(data));renderTasks()}
 function logout(){localStorage.removeItem('currentUser');showLogin()}
 // تحديث التاريخ تلقائيًا؛ وبعد منتصف الليل يبدأ يوم جديد بمهام غير محددة.
 setInterval(()=>{const today=currentDay();if(today!==renderedDay){renderedDay=today;updateDateLabel();if(!$('spiritualNotePage').classList.contains('hidden'))renderTasks()}},15000);
-window.addEventListener('DOMContentLoaded',()=>{const user=safeRead('currentUser',null);if(user)showNote(user);else showLogin()});
+window.addEventListener('DOMContentLoaded',()=>{
+  const registerButton=$('registerButton');
+  if(registerButton)registerButton.addEventListener('click',register);
+  const user=safeRead('currentUser',null);
+  if(user)showNote(user);else showLogin();
+});
 </script>
 </body>
 </html>
