@@ -838,42 +838,62 @@ function getDone(user = safeRead('currentUser', null)) {
   return data[key] || [];
 }
 
-
 async function loadDoneFromFirebase() {
   const user = safeRead('currentUser', null);
 
   if (!user || user.isAdmin || !user.uid) return;
 
-  const day = currentDay();
-  const key = progressKey(user, day);
-
   try {
     const doc = await db.collection('users')
       .doc(user.uid)
       .collection('days')
-      .doc(day)
+      .doc(currentDay())
       .get();
 
-    const data = safeRead('spiritualProgress', {});
+    if (doc.exists) {
+      const saved = doc.data().done;
 
-    if (doc.exists && Array.isArray(doc.data().done)) {
-      data[key] = doc.data().done;
-    } else {
-      data[key] = [];
+      if (Array.isArray(saved)) {
+        const data = safeRead('spiritualProgress', {});
+        data[progressKey(user, currentDay())] = saved;
+        localStorage.setItem('spiritualProgress', JSON.stringify(data));
+      }
     }
 
-    localStorage.setItem(
-      'spiritualProgress',
-      JSON.stringify(data)
-    );
-
     renderTasks();
-
-    console.log('تم تحميل إنجازات اليوم من Firebase');
   } catch (e) {
     console.error('Loading tasks error:', e);
   }
 }
+
+function setError(id,message){$(id).textContent=message;
+$(id).classList.remove('hidden')}
+function clearError(id){$(id).classList.add('hidden');
+$(id).textContent=''}
+function showLogin(){$('loginPage').classList.remove('hidden');
+$('registerPage').classList.add('hidden');
+$('spiritualNotePage').classList.add('hidden');
+$('adminPage').classList.add('hidden');
+$('visualPanel').classList.remove('hidden');
+clearError('loginError')}
+function showRegister(){$('loginPage').classList.add('hidden');
+$('registerPage').classList.remove('hidden');
+$('spiritualNotePage').classList.add('hidden');
+$('adminPage').classList.add('hidden');
+$('visualPanel').classList.remove('hidden');
+clearError('registerError')}
+function updateDateLabel(){$('todayDate').textContent='اليوم: '+new Intl.DateTimeFormat('ar-EG',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date())}
+let renderedDay=currentDay();
+function showNote(user){if(user&&user.isAdmin){showAdmin();
+return}$('loginPage').classList.add('hidden');
+$('registerPage').classList.add('hidden');
+$('adminPage').classList.add('hidden');
+$('visualPanel').classList.add('hidden');
+$('spiritualNotePage').classList.remove('hidden');
+$('welcomeName').textContent=`أهلاً يا ${user.name||'صديقنا'} ❤️`;
+updateDateLabel();
+renderedDay=currentDay();
+renderTasks()}
 
 async function login() {
   clearError('loginError');
@@ -951,14 +971,11 @@ async function login() {
     const user = {
       ...userDoc.data(),
       uid: uid
- 
     };
-localStorage.setItem('currentUser', JSON.stringify(user));
-showNote(user);
 
-loadDoneFromFirebase().catch(error => {
-  console.error('Firebase progress loading error:', error);
-});
+    localStorage.setItem('currentUser', JSON.stringify(user));
+showNote(user);
+loadDoneFromFirebase();
 
   } catch (e) {
     console.error('Login error:', e);
@@ -1151,100 +1168,49 @@ function filterAdminGrade(grade){
   renderAdminUsers();
 }
 
-async function renderAdminUsers() {
-  const root = $('adminUsersList');
-  root.innerHTML = '<div class="empty-state">جاري تحميل المخدومين...</div>';
-
-  try {
-    const snapshot = await db.collection('users').get();
-
-    const users = snapshot.docs.map(doc => ({
-      ...doc.data(),
-      uid: doc.id
-    }));
-
-    const query = String($('adminSearch')?.value || '')
-      .trim()
-      .toLocaleLowerCase('ar');
-
-    const grades = ['أولى إعدادي', 'ثانية إعدادي', 'ثالثة إعدادي'];
-
-    $('countFirstPrep').textContent =
-      users.filter(user => user.grade === grades[0]).length;
-
-    $('countSecondPrep').textContent =
-      users.filter(user => user.grade === grades[1]).length;
-
-    $('countThirdPrep').textContent =
-      users.filter(user => user.grade === grades[2]).length;
-
-    const filtered = users.filter(user => {
-      const gradeMatches =
-        selectedAdminGrade === 'الكل' ||
-        user.grade === selectedAdminGrade;
-
-      const nameMatches =
-        String(user.name || '').toLocaleLowerCase('ar').includes(query);
-
-      return gradeMatches && nameMatches;
-    });
-
-    $('adminUserCount').textContent =
-      `${filtered.length} من ${users.length} مخدوم`;
-
-    root.innerHTML = '';
-
-    if (!users.length) {
-      root.innerHTML =
-        '<div class="empty-state">لسه مفيش مخدومين مسجلين.</div>';
-      return;
-    }
-
-    if (!filtered.length) {
-      root.innerHTML =
-        '<div class="empty-state">مفيش مخدومين في الصف ده أو بالاسم ده.</div>';
-      return;
-    }
-
-    filtered.forEach(user => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'history-card';
-
-      const selected =
-        selectedAdminUser &&
-        (selectedAdminUser.uid === user.uid ||
-          selectedAdminUser.phone === user.phone);
-
-      b.textContent =
-        `${selected ? '▼' : '▶'}  ${user.name || 'بدون اسم'} — ${user.grade || 'الصف غير مسجل'}`;
-
-      b.setAttribute('aria-expanded', String(Boolean(selected)));
-
-      b.addEventListener('click', () => {
-        if (selectedAdminUser &&
-            (selectedAdminUser.uid === user.uid ||
-             selectedAdminUser.phone === user.phone)) {
-          selectedAdminUser = null;
-          $('adminHistory').classList.add('hidden');
-          renderAdminUsers();
-          return;
-        }
-
-        selectedAdminUser = user;
-        renderAdminUsers();
-        showUserHistory(user);
-        toggleStudentData();
-      });
-
-      root.appendChild(b);
-    });
-
-  } catch (e) {
-    console.error('Loading admin users error:', e);
-    root.innerHTML =
-      '<div class="empty-state">تعذر تحميل المخدومين. اتأكد من الاتصال وحاول تاني.</div>';
+function renderAdminUsers(){
+  const users=safeRead('users',[]);
+  const root=$('adminUsersList');
+  root.innerHTML='';
+  const query=String($('adminSearch')?.value||'').trim().toLocaleLowerCase('ar');
+  const grades=['أولى إعدادي','ثانية إعدادي','ثالثة إعدادي'];
+  $('countFirstPrep').textContent=users.filter(user=>user.grade===grades[0]).length;
+  $('countSecondPrep').textContent=users.filter(user=>user.grade===grades[1]).length;
+  $('countThirdPrep').textContent=users.filter(user=>user.grade===grades[2]).length;
+  const filtered=users.filter(user=>{
+    const gradeMatches=selectedAdminGrade==='الكل'||user.grade===selectedAdminGrade;
+    const nameMatches=String(user.name||'').toLocaleLowerCase('ar').includes(query);
+    return gradeMatches&&nameMatches;
+  });
+  $('adminUserCount').textContent=`${filtered.length} من ${users.length} مخدوم`;
+  if(!users.length){
+    root.innerHTML='<div class="empty-state">لسه مفيش مخدومين مسجلين على الجهاز ده.</div>';
+    return;
   }
+  if(!filtered.length){
+    root.innerHTML='<div class="empty-state">مفيش مخدومين في الصف ده أو الاسم ده.</div>';
+    return;
+  }
+  filtered.forEach(user=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='history-card';
+    b.textContent=`${selectedAdminUser&&selectedAdminUser.phone===user.phone?'▼':'▶'}  ${user.name||'بدون اسم'} — ${user.grade||'الصف غير مسجل'}`;
+    b.setAttribute('aria-expanded',String(Boolean(selectedAdminUser&&selectedAdminUser.phone===user.phone)));
+    b.addEventListener('click',()=>{
+      if(selectedAdminUser&&selectedAdminUser.phone===user.phone){
+        selectedAdminUser=null;
+        $('adminHistory').classList.add('hidden');
+        renderAdminUsers();
+        return;
+      }
+      selectedAdminUser=user;
+      renderAdminUsers();
+      showUserHistory(user);
+      toggleStudentData();
+    });
+    root.appendChild(b);
+  });
 }
 
 function showUserHistory(user){
@@ -1293,7 +1259,6 @@ function logout(){localStorage.removeItem('currentUser');
 $('loginPhone').value='';
 $('loginPassword').value='';
 showLogin()}
-  let renderedDay = currentDay();
 // تحديث التاريخ تلقائيًا؛ وبعد منتصف الليل يبدأ يوم جديد بمهام غير محددة.
 setInterval(()=>{const today=currentDay();if(today!==renderedDay){renderedDay=today;updateDateLabel();if(!$('spiritualNotePage').classList.contains('hidden'))renderTasks()}},15000);
 window.addEventListener('DOMContentLoaded',()=>{
