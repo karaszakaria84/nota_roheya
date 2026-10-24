@@ -1293,6 +1293,7 @@ function logout(){localStorage.removeItem('currentUser');
 $('loginPhone').value='';
 $('loginPassword').value='';
 showLogin()}
+  let renderedDay = currentDay();
 // تحديث التاريخ تلقائيًا؛ وبعد منتصف الليل يبدأ يوم جديد بمهام غير محددة.
 setInterval(()=>{const today=currentDay();if(today!==renderedDay){renderedDay=today;updateDateLabel();if(!$('spiritualNotePage').classList.contains('hidden'))renderTasks()}},15000);
 window.addEventListener('DOMContentLoaded',()=>{
