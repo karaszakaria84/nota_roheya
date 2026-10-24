@@ -7,107 +7,810 @@
 <title>النوتة الروحية | كنيسة السيدة العذراء</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
-:root{--forest:#173f35;--forest2:#245849;--gold:#c8a96b;--gold-light:#ead9ad;--cream:#f7f3e9;--paper:#fffdf8;--ink:#25352f;--muted:#77837c;--line:#e8e2d5;--mint:#e7f1eb;--red:#a8443b;--shadow:0 22px 65px rgba(29,55,44,.13)}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:'Cairo',sans-serif;color:var(--ink);background:radial-gradient(ellipse at top right,#e5eadb 0,transparent 38%),linear-gradient(135deg,#f8f5ed,#f0eee4);padding:28px 16px 40px}
-button,input,select{font:inherit}button{cursor:pointer}
-.page{width:min(100%,1050px);margin:auto}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:22px}
-.brand{display:flex;align-items:center;gap:12px}.brand-mark{width:48px;height:48px;border-radius:16px;background:var(--forest);color:var(--gold-light);display:grid;place-items:center;font-size:25px;box-shadow:0 8px 20px #173f3525}
-.brand-name{font-size:16px;font-weight:800;color:var(--forest)}.brand-sub{font-size:11px;color:var(--muted)}
-.top-pill{border:1px solid #d9d3c5;background:#ffffff9c;padding:8px 13px;border-radius:999px;color:var(--forest);font-size:12px;font-weight:700}
-.shell{display:grid;grid-template-columns:1fr 1.05fr;background:var(--paper);border:1px solid #e6dfd0;border-radius:28px;overflow:hidden;box-shadow:var(--shadow);min-height:590px}
-.visual{background:linear-gradient(150deg,#173f35,#245849 65%,#2b6654);color:#fff;padding:42px 34px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
-.visual:before,.visual:after{content:"";position:absolute;border:1px solid #d7bd7a30;border-radius:50%;width:330px;height:330px;left:-170px;top:18px}
-.visual:after{width:430px;height:430px;left:-220px;top:-30px}
-.ornament{font-size:38px;color:var(--gold-light);opacity:.9;position:relative;z-index:1}
-.verse{position:relative;z-index:1;margin:auto 0;padding:40px 0}
-.verse .eyebrow{color:var(--gold-light);font-size:11px;letter-spacing:1.5px;font-weight:700}
-.verse h2{font-size:clamp(26px,3.2vw,38px);line-height:1.75;margin:12px 0 15px;font-weight:700}
-.verse p{color:#d9e5dc;font-size:13px;line-height:2;margin:0}
-.visual-foot{position:relative;z-index:1;border-top:1px solid #ffffff26;padding-top:17px;font-size:11px;color:#d9e5dc}
-.panel{padding:38px clamp(22px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
-.logo-small{width:54px;height:54px;border-radius:18px;background:var(--cream);display:grid;place-items:center;font-size:26px;color:var(--forest);margin-bottom:17px;border:1px solid var(--line)}
-h1{font-size:28px;line-height:1.4;color:var(--forest);margin:0 0 5px}
-.intro{font-size:13px;line-height:1.9;color:var(--muted);margin:0 0 25px}
-.form-group{margin-bottom:14px}.form-group label{display:block;font-size:12px;font-weight:700;color:#42564c;margin-bottom:6px}
-.form-group input,.form-group select{width:100%;padding:12px 14px;border:1px solid #ddd9ce;border-radius:12px;background:#fffefa;outline:none;transition:.2s;color:var(--ink)}
-.form-group input:focus,.form-group select:focus{border-color:var(--forest2);box-shadow:0 0 0 3px #24584915}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn{width:100%;border:0;border-radius:12px;padding:12px 15px;background:var(--forest);color:white;font-weight:800;font-size:14px;transition:.2s;margin-top:7px;touch-action:manipulation;position:relative;z-index:2; -webkit-tap-highlight-color:transparent}
-.btn:hover{background:#0f3028;transform:translateY(-1px)}
-.btn-light{background:#edf2ec;color:var(--forest);border:1px solid #dbe6dc}.btn-light:hover{background:#dfeae1}
-.switch{font-size:12px;color:var(--muted);text-align:center;margin-top:20px}.link{color:var(--forest);font-weight:800;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
-.notice{font-size:11px;color:#7c847d;line-height:1.8;margin-top:17px;text-align:center}
-.hidden{display:none!important}
-.dashboard{grid-column:1/-1;padding:clamp(22px,4vw,42px)}
-.dash-head{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:25px}
-.dash-head h1{font-size:27px}.dash-head p{color:var(--muted);font-size:13px;margin:6px 0 0}
-.date-chip{background:var(--cream);border:1px solid var(--line);padding:9px 13px;border-radius:12px;font-size:12px;color:var(--forest);white-space:nowrap}
-.welcome{background:linear-gradient(115deg,#173f35,#2a6653);color:#fff;border-radius:20px;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px;position:relative;overflow:hidden}
-.welcome:after{content:"✝";position:absolute;left:20px;top:-22px;font-size:115px;color:#ffffff0b}
-.welcome small{color:#d7e5d9;font-size:12px}.welcome h2{font-size:22px;margin:4px 0}.welcome p{margin:0;color:#d7e5d9;font-size:12px}
-.progress-ring{width:82px;height:82px;flex-shrink:0;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) var(--progress,0%),#ffffff25 0);position:relative}
-.progress-ring:before{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--forest2)}
-.progress-ring span{position:relative;font-size:16px;font-weight:800}
-.section-title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:27px 0 13px}.section-title h3{margin:0;color:var(--forest);font-size:17px}.section-title span{font-size:11px;color:var(--muted)}
-.task-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
-.task{border:1px solid var(--line);background:#fffefa;border-radius:15px;padding:15px 13px;text-align:right;min-height:116px;display:flex;flex-direction:column;justify-content:space-between;transition:.2s;color:var(--ink)}
-.task:hover{border-color:#b8c9b9;transform:translateY(-2px)}.task.done{background:var(--mint);border-color:#b9d2c0}
-.task-top{display:flex;align-items:center;justify-content:space-between;gap:8px}.task-icon{width:35px;height:35px;border-radius:11px;background:var(--cream);display:grid;place-items:center;font-size:19px}.task-check{color:#aab3ac;font-size:19px}.task.done .task-check{color:#267450}
-.task-name{font-size:12px;font-weight:800;margin-top:12px}.task.done .task-name{color:#426d54}
-.dash-bottom{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-top:23px;padding-top:17px;border-top:1px solid var(--line)}
-.dash-bottom p{font-size:11px;color:var(--muted);margin:0;line-height:1.8}.logout{width:auto;padding:9px 15px;margin:0;background:#fff1ef;color:var(--red);border:1px solid #f0d5d1;font-size:12px}.logout:hover{background:#ffe5e1}
-.toast{font-size:12px;color:var(--red);background:#fff0ed;border-radius:10px;padding:10px 12px;margin-bottom:12px}
-@media(max-width:760px){body{padding:14px 10px}.shell{grid-template-columns:1fr;border-radius:22px}.visual{padding:22px 24px;min-height:240px}.verse{padding:18px 0}.verse h2{font-size:27px}.visual-foot{display:none}.panel{padding:28px 24px}.task-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.dash-head{flex-direction:column}.date-chip{white-space:normal}.top-pill{display:none}}
-@media(max-width:390px){.task-grid{grid-template-columns:1fr 1fr}.task{padding:12px;min-height:105px}.welcome{padding:18px}.progress-ring{width:68px;height:68px}.welcome h2{font-size:19px}}
+:root{
+  --forest:#173f35;
+  --forest2:#245849;
+  --gold:#c8a96b;
+  --gold-light:#ead9ad;
+  --cream:#f7f3e9;
+  --paper:#fffdf8;
+  --ink:#25352f;
+  --muted:#77837c;
+  --line:#e8e2d5;
+  --mint:#e7f1eb;
+  --red:#a8443b;
+  --shadow:0 22px 65px rgba(29,55,44,.13)
+}
+*{
+  box-sizing:border-box
+}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:'Cairo',sans-serif;
+  color:var(--ink);
+  background:radial-gradient(ellipse at top right,#e5eadb 0,transparent 38%),linear-gradient(135deg,#f8f5ed,#f0eee4);
+  padding:28px 16px 40px
+}
+button,input,select{
+  font:inherit
+}
+button{
+  cursor:pointer
+}
+.page{
+  width:min(100%,1050px);
+  margin:auto
+}
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:22px
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px
+}
+.brand-mark{
+  width:48px;
+  height:48px;
+  border-radius:16px;
+  background:var(--forest);
+  color:var(--gold-light);
+  display:grid;
+  place-items:center;
+  font-size:25px;
+  box-shadow:0 8px 20px #173f3525
+}
+.brand-name{
+  font-size:16px;
+  font-weight:800;
+  color:var(--forest)
+}
+.brand-sub{
+  font-size:11px;
+  color:var(--muted)
+}
+.top-pill{
+  border:1px solid #d9d3c5;
+  background:#ffffff9c;
+  padding:8px 13px;
+  border-radius:999px;
+  color:var(--forest);
+  font-size:12px;
+  font-weight:700
+}
+.shell{
+  display:grid;
+  grid-template-columns:1fr 1.05fr;
+  background:var(--paper);
+  border:1px solid #e6dfd0;
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  min-height:590px
+}
+.visual{
+  background:linear-gradient(150deg,#173f35,#245849 65%,#2b6654);
+  color:#fff;
+  padding:42px 34px;
+  position:relative;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between
+}
+.visual:before,.visual:after{
+  content:"";
+  position:absolute;
+  border:1px solid #d7bd7a30;
+  border-radius:50%;
+  width:330px;
+  height:330px;
+  left:-170px;
+  top:18px
+}
+.visual:after{
+  width:430px;
+  height:430px;
+  left:-220px;
+  top:-30px
+}
+.ornament{
+  font-size:38px;
+  color:var(--gold-light);
+  opacity:.9;
+  position:relative;
+  z-index:1
+}
+.verse{
+  position:relative;
+  z-index:1;
+  margin:auto 0;
+  padding:40px 0
+}
+.verse .eyebrow{
+  color:var(--gold-light);
+  font-size:11px;
+  letter-spacing:1.5px;
+  font-weight:700
+}
+.verse h2{
+  font-size:clamp(26px,3.2vw,38px);
+  line-height:1.75;
+  margin:12px 0 15px;
+  font-weight:700
+}
+.verse p{
+  color:#d9e5dc;
+  font-size:13px;
+  line-height:2;
+  margin:0
+}
+.visual-foot{
+  position:relative;
+  z-index:1;
+  border-top:1px solid #ffffff26;
+  padding-top:17px;
+  font-size:11px;
+  color:#d9e5dc
+}
+.panel{
+  padding:38px clamp(22px,4vw,48px);
+  display:flex;
+  flex-direction:column;
+  justify-content:center
+}
+.logo-small{
+  width:54px;
+  height:54px;
+  border-radius:18px;
+  background:var(--cream);
+  display:grid;
+  place-items:center;
+  font-size:26px;
+  color:var(--forest);
+  margin-bottom:17px;
+  border:1px solid var(--line)
+}
+h1{
+  font-size:28px;
+  line-height:1.4;
+  color:var(--forest);
+  margin:0 0 5px
+}
+.intro{
+  font-size:13px;
+  line-height:1.9;
+  color:var(--muted);
+  margin:0 0 25px
+}
+.form-group{
+  margin-bottom:14px
+}
+.form-group label{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  color:#42564c;
+  margin-bottom:6px
+}
+.form-group input,.form-group select{
+  width:100%;
+  padding:12px 14px;
+  border:1px solid #ddd9ce;
+  border-radius:12px;
+  background:#fffefa;
+  outline:none;
+  transition:.2s;
+  color:var(--ink)
+}
+.form-group input:focus,.form-group select:focus{
+  border-color:var(--forest2);
+  box-shadow:0 0 0 3px #24584915
+}
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px
+}
+.btn{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:12px 15px;
+  background:var(--forest);
+  color:white;
+  font-weight:800;
+  font-size:14px;
+  transition:.2s;
+  margin-top:7px;
+  touch-action:manipulation;
+  position:relative;
+  z-index:2;
+  -webkit-tap-highlight-color:transparent
+}
+.btn:hover{
+  background:#0f3028;
+  transform:translateY(-1px)
+}
+.btn-light{
+  background:#edf2ec;
+  color:var(--forest);
+  border:1px solid #dbe6dc
+}
+.btn-light:hover{
+  background:#dfeae1
+}
+.switch{
+  font-size:12px;
+  color:var(--muted);
+  text-align:center;
+  margin-top:20px
+}
+.link{
+  color:var(--forest);
+  font-weight:800;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  cursor:pointer
+}
+.notice{
+  font-size:11px;
+  color:#7c847d;
+  line-height:1.8;
+  margin-top:17px;
+  text-align:center
+}
+.hidden{
+  display:none!important
+}
+.dashboard{
+  grid-column:1/-1;
+  padding:clamp(22px,4vw,42px)
+}
+.dash-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:20px;
+  margin-bottom:25px
+}
+.dash-head h1{
+  font-size:27px
+}
+.dash-head p{
+  color:var(--muted);
+  font-size:13px;
+  margin:6px 0 0
+}
+.date-chip{
+  background:var(--cream);
+  border:1px solid var(--line);
+  padding:9px 13px;
+  border-radius:12px;
+  font-size:12px;
+  color:var(--forest);
+  white-space:nowrap
+}
+.welcome{
+  background:linear-gradient(115deg,#173f35,#2a6653);
+  color:#fff;
+  border-radius:20px;
+  padding:22px 24px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  position:relative;
+  overflow:hidden
+}
+.welcome:after{
+  content:"✝";
+  position:absolute;
+  left:20px;
+  top:-22px;
+  font-size:115px;
+  color:#ffffff0b
+}
+.welcome small{
+  color:#d7e5d9;
+  font-size:12px
+}
+.welcome h2{
+  font-size:22px;
+  margin:4px 0
+}
+.welcome p{
+  margin:0;
+  color:#d7e5d9;
+  font-size:12px
+}
+.progress-ring{
+  width:82px;
+  height:82px;
+  flex-shrink:0;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:conic-gradient(var(--gold) var(--progress,0%),#ffffff25 0);
+  position:relative
+}
+.progress-ring:before{
+  content:"";
+  position:absolute;
+  inset:7px;
+  border-radius:50%;
+  background:var(--forest2)
+}
+.progress-ring span{
+  position:relative;
+  font-size:16px;
+  font-weight:800
+}
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin:27px 0 13px
+}
+.section-title h3{
+  margin:0;
+  color:var(--forest);
+  font-size:17px
+}
+.section-title span{
+  font-size:11px;
+  color:var(--muted)
+}
+.task-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:11px
+}
+.task{
+  border:1px solid var(--line);
+  background:#fffefa;
+  border-radius:15px;
+  padding:15px 13px;
+  text-align:right;
+  min-height:116px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  transition:.2s;
+  color:var(--ink)
+}
+.task:hover{
+  border-color:#b8c9b9;
+  transform:translateY(-2px)
+}
+.task.done{
+  background:var(--mint);
+  border-color:#b9d2c0
+}
+.task-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px
+}
+.task-icon{
+  width:35px;
+  height:35px;
+  border-radius:11px;
+  background:var(--cream);
+  display:grid;
+  place-items:center;
+  font-size:19px
+}
+.task-check{
+  color:#aab3ac;
+  font-size:19px
+}
+.task.done .task-check{
+  color:#267450
+}
+.task-name{
+  font-size:12px;
+  font-weight:800;
+  margin-top:12px
+}
+.task.done .task-name{
+  color:#426d54
+}
+.dash-bottom{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-top:23px;
+  padding-top:17px;
+  border-top:1px solid var(--line)
+}
+.dash-bottom p{
+  font-size:11px;
+  color:var(--muted);
+  margin:0;
+  line-height:1.8
+}
+.logout{
+  width:auto;
+  padding:9px 15px;
+  margin:0;
+  background:#fff1ef;
+  color:var(--red);
+  border:1px solid #f0d5d1;
+  font-size:12px
+}
+.logout:hover{
+  background:#ffe5e1
+}
+.history-card{
+  border:1px solid var(--line);
+  background:#fffefa;
+  border-radius:15px;
+  padding:15px;
+  text-align:right;
+  color:var(--ink);
+  font-weight:800;
+  min-height:70px
+}
+.history-card:hover{
+  border-color:#b8c9b9;
+  background:var(--mint)
+}
+.history-task{
+  border:1px solid var(--line);
+  background:#fffefa;
+  border-radius:12px;
+  padding:13px;
+  font-size:13px;
+  font-weight:700
+}
+.history-task.done{
+  background:var(--mint);
+  border-color:#b9d2c0;
+  color:#267450
+}
+.empty-state{
+  grid-column:1/-1;
+  color:var(--muted);
+  padding:20px;
+  text-align:center;
+  background:var(--cream);
+  border-radius:12px
+}
+.toast{
+  font-size:12px;
+  color:var(--red);
+  background:#fff0ed;
+  border-radius:10px;
+  padding:10px 12px;
+  margin-bottom:12px
+}
+@media(max-width:760px){
+  body{
+    padding:14px 10px
+  }
+  .shell{
+    grid-template-columns:1fr;
+    border-radius:22px
+  }
+  .visual{
+    padding:22px 24px;
+    min-height:240px
+  }
+  .verse{
+    padding:18px 0
+  }
+  .verse h2{
+    font-size:27px
+  }
+  .visual-foot{
+    display:none
+  }
+  .panel{
+    padding:28px 24px
+  }
+  .task-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))
+  }
+  .dash-head{
+    flex-direction:column
+  }
+  .date-chip{
+    white-space:normal
+  }
+  .top-pill{
+    display:none
+  }
+}
+@media(max-width:390px){
+  .task-grid{
+    grid-template-columns:1fr 1fr
+  }
+  .task{
+    padding:12px;
+    min-height:105px
+  }
+  .welcome{
+    padding:18px
+  }
+  .progress-ring{
+    width:68px;
+    height:68px
+  }
+  .welcome h2{
+    font-size:19px
+  }
+}
+
+.grade-cards{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:12px;
+  margin:18px 0;
+}
+.grade-card{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:125px;
+  padding:15px 10px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:#fffefa;
+  color:var(--forest);
+  cursor:pointer;
+  transition:.2s;
+}
+.grade-card:hover,.grade-card.active{
+  border-color:var(--forest2);
+  background:var(--mint);
+  transform:translateY(-2px);
+}
+.grade-card strong{
+  font-size:28px;
+}
+.grade-card-title{
+  font-weight:800;
+}
+.grade-card small{
+  color:var(--muted);
+}
+@media(max-width:560px){
+  .grade-cards{grid-template-columns:1fr;}
+  .grade-card{min-height:85px;flex-direction:row;gap:12px;}
+  .grade-card strong{font-size:23px;}
+}
+
 </style>
 </head>
 <body>
 <div class="page">
   <header class="topbar">
-    <div class="brand"><div class="brand-mark">✝</div><div><div class="brand-name">النوتة الروحية</div><div class="brand-sub">كنيسة السيدة العذراء والأرشيدياكون حبيب جرجس</div></div></div>
+    <div class="brand">
+<div class="brand-mark">✝</div>
+<div>
+<div class="brand-name">النوتة الروحية</div>
+<div class="brand-sub">كنيسة السيدة العذراء والأرشيدياكون حبيب جرجس</div>
+</div>
+</div>
     <div class="top-pill">✦ خطوة صغيرة كل يوم</div>
   </header>
   <main class="shell">
     <aside class="visual" id="visualPanel">
       <div class="ornament">✝</div>
-      <div class="verse"><div class="eyebrow">كَلِمَةٌ لِلْيَوْم</div><h2>«اثْبُتُوا فِيَّ<br>وَأَنَا فِيكُمْ»</h2><p>اجعل لكل يوم وقتًا هادئًا مع الله،<br>فالنمو الروحي يبدأ بخطوة صغيرة وأمينة.</p></div>
+      <div class="verse">
+<div class="eyebrow">كَلِمَةٌ لِلْيَوْم</div>
+<h2>«اثْبُتُوا فِيَّ<br>وَأَنَا فِيكُمْ»</h2>
+<p>اجعل لكل يوم وقتًا هادئًا مع الله،<br>فالنمو الروحي يبدأ بخطوة صغيرة وأمينة.</p>
+</div>
       <div class="visual-foot">كنيسة السيدة العذراء والأرشيدياكون حبيب جرجس · العبور الجديدة</div>
     </aside>
     <section class="panel" id="loginPage">
-      <div class="logo-small">📖</div><h1>أهلاً بيك</h1><p class="intro">ابدأ يومك بسلام، وتابع خطواتك الروحية يومًا بيوم.</p>
-      <div id="loginError" class="toast hidden" role="alert"></div>
-      <div class="form-group"><label for="loginPhone">رقم التليفون</label><input id="loginPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="01xxxxxxxxx"></div>
-      <div class="form-group"><label for="loginPassword">كلمة المرور</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="اكتب كلمة المرور"></div>
+      <div class="logo-small">📖</div>
+<h1>أهلاً بيك</h1>
+<p class="intro">ابدأ يومك بسلام، وتابع خطواتك الروحية يومًا بيوم.</p>
+      <div id="loginError" class="toast hidden" role="alert">
+</div>
+      <div class="form-group">
+<label for="loginPhone">رقم التليفون أو اسم المستخدم</label>
+<input id="loginPhone" type="text" autocomplete="username" placeholder="رقم التليفون أو اسم المستخدم">
+</div>
+      <div class="form-group">
+<label for="loginPassword">كلمة المرور</label>
+<input id="loginPassword" type="password" autocomplete="current-password" placeholder="اكتب كلمة المرور">
+</div>
       <button class="btn" onclick="login()">تسجيل الدخول</button>
-      <div class="switch">لسه معندكش حساب؟ <span class="link" onclick="showRegister()">سجّل حساب جديد</span></div>
+      <div class="switch">لسه معندكش حساب؟ <span class="link" onclick="showRegister()">سجّل حساب جديد</span>
+</div>
       <div class="notice">نسخة تجريبية تحفظ البيانات على هذا الجهاز فقط.</div>
     </section>
     <section class="panel hidden" id="registerPage">
-      <div class="logo-small">🌿</div><h1>حساب جديد</h1><p class="intro">سجّل بياناتك عشان تتابع نوتتك الروحية.</p>
-      <div id="registerError" class="toast hidden" role="alert"></div>
-      <div class="form-group"><label for="regName">الاسم بالكامل</label><input id="regName" autocomplete="name" placeholder="الاسم الثلاثي"></div>
-      <div class="form-group"><label for="regPhone">رقم التليفون</label><input id="regPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="01xxxxxxxxx"></div>
+      <div class="logo-small">🌿</div>
+<h1>حساب جديد</h1>
+<p class="intro">سجّل بياناتك عشان تتابع نوتتك الروحية.</p>
+      <div id="registerError" class="toast hidden" role="alert">
+</div>
+      <div class="form-group">
+<label for="regName">الاسم بالكامل</label>
+<input id="regName" autocomplete="name" placeholder="الاسم الثلاثي">
+</div>
+      <div class="form-group">
+<label for="regPhone">رقم التليفون</label>
+<input id="regPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="01xxxxxxxxx">
+</div>
       <div class="grid2">
-        <div class="form-group"><label for="regBuilding">رقم العمارة</label><input id="regBuilding" placeholder="مثال: 15"></div>
-        <div class="form-group"><label for="regApartment">رقم الشقة</label><input id="regApartment" placeholder="مثال: 4"></div>
+        <div class="form-group">
+<label for="regBuilding">رقم العمارة</label>
+<input id="regBuilding" placeholder="مثال: 15">
+</div>
+        <div class="form-group">
+<label for="regApartment">رقم الشقة</label>
+<input id="regApartment" placeholder="مثال: 4">
+</div>
       </div>
-      <div class="form-group"><label for="regDistrict">الحي السكني</label><select id="regDistrict"><option value="">اختر الحي</option><option>حي المجد</option><option>حي الحرية</option><option>حي الكرامة</option><option>حي سكن مصر</option><option>حي الياقوت</option><option>حي الواحة</option><option>حي الفيروز</option><option>أخرى</option></select></div>
-      <div class="form-group"><label for="regServant">اسم الخادم</label><input id="regServant" placeholder="اسم الخادم المسؤول"></div>
-      <div class="form-group"><label for="regGrade">الصف الدراسي</label><select id="regGrade"><option value="">اختر الصف</option><option>أولى إعدادي</option><option>ثانية إعدادي</option><option>ثالثة إعدادي</option></select></div>
-      <div class="form-group"><label for="regPassword">كلمة المرور</label><input id="regPassword" type="password" autocomplete="new-password" placeholder="أنشئ كلمة مرور"></div>
+      <div class="form-group">
+<label for="regDistrict">الحي السكني</label>
+<select id="regDistrict">
+<option value="">اختر الحي</option>
+<option>حي المجد</option>
+<option>حي الحرية</option>
+<option>حي الكرامة</option>
+<option>حي سكن مصر</option>
+<option>حي الياقوت</option>
+<option>حي الواحة</option>
+<option>حي الفيروز</option>
+<option>أخرى</option>
+</select>
+</div>
+      <div class="form-group">
+<label for="regServant">اسم الخادم</label>
+<input id="regServant" placeholder="اسم الخادم المسؤول">
+</div>
+      <div class="form-group">
+<label for="regGrade">الصف الدراسي</label>
+<select id="regGrade">
+<option value="">اختر الصف</option>
+<option>أولى إعدادي</option>
+<option>ثانية إعدادي</option>
+<option>ثالثة إعدادي</option>
+</select>
+</div>
+      <div class="form-group">
+<label for="regPassword">كلمة المرور</label>
+<input id="regPassword" type="password" autocomplete="new-password" placeholder="أنشئ كلمة مرور">
+</div>
       <button class="btn" id="registerButton" type="button">إنشاء الحساب</button>
-      <div class="switch">عندك حساب بالفعل؟ <span class="link" onclick="showLogin()">سجّل الدخول</span></div>
+      <div class="switch">عندك حساب بالفعل؟ <span class="link" onclick="showLogin()">سجّل الدخول</span>
+</div>
     </section>
     <section class="dashboard hidden" id="spiritualNotePage">
-      <div class="dash-head"><div><h1>نوتتك الروحية 🌿</h1><p>مش مطلوب الكمال؛ المهم إنك تكمّل بخطوة كل يوم.</p></div><div class="date-chip" id="todayDate"></div></div>
-      <div class="welcome"><div><small>سلام المسيح معاك</small><h2 id="welcomeName">أهلاً بيك</h2><p id="welcomeMessage">ابدأ باللي تقدر عليه النهارده.</p></div><div class="progress-ring" id="progressRing" style="--progress:0%"><span id="progressNumber">0%</span></div></div>
-      <div class="section-title"><h3>خطواتك النهارده</h3><span id="taskCount">0 من 9 مكتملة</span></div>
-      <div class="task-grid" id="taskList"></div>
-      <div class="dash-bottom"><p>«كُلُّ شَيْءٍ بِحُسْنٍ وَبِتَرْتِيبٍ»<br>خد وقتك، وارجع تاني كل ما تحتاج.</p><button class="btn logout" onclick="logout()">تسجيل خروج</button></div>
+      <div class="dash-head">
+<div>
+<h1>نوتتك الروحية 🌿</h1>
+<p>مش مطلوب الكمال؛ المهم إنك تكمّل بخطوة كل يوم.</p>
+</div>
+<div class="date-chip" id="todayDate">
+</div>
+</div>
+      <div class="welcome">
+<div>
+<small>سلام المسيح معاك</small>
+<h2 id="welcomeName">أهلاً بيك</h2>
+<p id="welcomeMessage">ابدأ باللي تقدر عليه النهارده.</p>
+</div>
+<div class="progress-ring" id="progressRing" style="--progress:0%">
+<span id="progressNumber">0%</span>
+</div>
+</div>
+      <div class="section-title">
+<h3>خطواتك النهارده</h3>
+<span id="taskCount">0 من 9 مكتملة</span>
+</div>
+      <div class="task-grid" id="taskList">
+</div>
+      <div class="dash-bottom">
+<p>«كُلُّ شَيْءٍ بِحُسْنٍ وَبِتَرْتِيبٍ»<br>خد وقتك، وارجع تاني كل ما تحتاج.</p>
+<button class="btn logout" onclick="logout()">تسجيل خروج</button>
+</div>
+    </section>
+    <section class="dashboard hidden" id="adminPage">
+      <div class="dash-head">
+        <div>
+<h1>لوحة الخدام ✝</h1>
+<p>اختار مخدوم علشان تشوف الأيام والمهام اللي سجلها.</p>
+</div>
+        <button class="btn logout" onclick="logout()">تسجيل خروج</button>
+      </div>
+      <div class="section-title">
+<h3>أسماء المخدومين</h3>
+<span id="adminUserCount">0 مخدوم</span>
+</div>
+      <div class="grade-cards" id="adminGradeCards">
+        <button type="button" class="grade-card" data-grade="أولى إعدادي" onclick="filterAdminGrade('أولى إعدادي')">
+          <span class="grade-card-title">أولى إعدادي</span>
+          <strong id="countFirstPrep">0</strong>
+          <small>مخدوم</small>
+        </button>
+        <button type="button" class="grade-card" data-grade="ثانية إعدادي" onclick="filterAdminGrade('ثانية إعدادي')">
+          <span class="grade-card-title">ثانية إعدادي</span>
+          <strong id="countSecondPrep">0</strong>
+          <small>مخدوم</small>
+        </button>
+        <button type="button" class="grade-card" data-grade="ثالثة إعدادي" onclick="filterAdminGrade('ثالثة إعدادي')">
+          <span class="grade-card-title">ثالثة إعدادي</span>
+          <strong id="countThirdPrep">0</strong>
+          <small>مخدوم</small>
+        </button>
+      </div>
+      <div class="form-group">
+        <label for="adminSearch">ابحث عن اسم المخدوم</label>
+        <input id="adminSearch" type="search" placeholder="اكتب اسم المخدوم..." autocomplete="off" oninput="renderAdminUsers()">
+        <button class="btn btn-light" type="button" onclick="filterAdminGrade('الكل')" style="margin-top:8px">عرض كل المخدومين</button>
+      </div>
+      <div id="adminUsersList" class="task-grid">
+</div>
+      <div id="adminHistory" class="hidden">
+        <div class="section-title">
+<h3 id="historyTitle">سجل المخدوم</h3>
+<span>كل التفاصيل في نفس الصفحة</span>
+</div>
+        <button class="btn btn-light" id="toggleStudentData" type="button" onclick="toggleStudentData()">بيانات المخدوم ده</button>
+        <div id="studentDataPanel" class="hidden" style="margin-top:12px">
+</div>
+        <div class="section-title">
+<h3>أيام المتابعة</h3>
+<span>من 21/10/2026 لحد النهارده</span>
+</div>
+        <div id="adminDates" class="task-grid">
+</div>
+        <div id="adminDayTasks" class="hidden">
+          <div class="section-title">
+<h3 id="historyDateTitle">مهام اليوم</h3>
+</div>
+          <div id="adminTaskList" class="task-grid">
+</div>
+        </div>
+      </div>
     </section>
   </main>
 </div>
+
+
+
+
+
+<!-- Firebase: اتصال قاعدة البيانات وتسجيل الدخول -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCBt-gE8jh0Rq8s94LckD7dTzHweR0D628",
+  authDomain: "alnotta-ro7eya.firebaseapp.com",
+  projectId: "alnotta-ro7eya",
+  storageBucket: "alnotta-ro7eya.firebasestorage.app",
+  messagingSenderId: "1015052087592",
+  appId: "1:1015052087592:web:51af59d6da38566032201d"
+};
+  firebase.initializeApp(firebaseConfig);
+
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  console.log("Firebase initialized successfully");
+</script>
+
 <script>
 const tasks=[
 {id:1,name:'صلاة باكر',icon:'☀️'},
@@ -119,59 +822,453 @@ const tasks=[
 {id:7,name:'القداس الالهى',icon:'🕯️'},
 {id:8,name:'سر التوبة والاعتراف',icon:'✝️'}];
 const $=id=>document.getElementById(id);
-function safeRead(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}}
-function currentDay(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
-function getDone(){const data=safeRead('spiritualProgress',{});return data[currentDay()]||[]}
-function setError(id,message){$(id).textContent=message;$(id).classList.remove('hidden')}
-function clearError(id){$(id).classList.add('hidden');$(id).textContent=''}
-function showLogin(){['loginPage'].forEach(id=>$(id).classList.remove('hidden'));$('registerPage').classList.add('hidden');$('spiritualNotePage').classList.add('hidden');$('visualPanel').classList.remove('hidden');clearError('loginError')}
-function showRegister(){$('loginPage').classList.add('hidden');$('registerPage').classList.remove('hidden');$('spiritualNotePage').classList.add('hidden');$('visualPanel').classList.remove('hidden');clearError('registerError')}
-function updateDateLabel(){$('todayDate').textContent='اليوم: '+new Intl.DateTimeFormat('ar-EG',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date())}
-let renderedDay=currentDay();
-function showNote(user){$('loginPage').classList.add('hidden');$('registerPage').classList.add('hidden');$('visualPanel').classList.add('hidden');$('spiritualNotePage').classList.remove('hidden');$('welcomeName').textContent=`أهلاً يا ${user.name||'صديقنا'} ❤️`;updateDateLabel();renderedDay=currentDay();renderTasks()}
-function login(){clearError('loginError');const phone=$('loginPhone').value.trim(),password=$('loginPassword').value;if(!phone||!password){setError('loginError','من فضلك اكتب رقم التليفون وكلمة المرور.');return}const users=safeRead('users',[]);const user=users.find(u=>u.phone===phone&&u.password===password);if(!user){setError('loginError','البيانات مش مطابقة. راجعها أو جرّب الدخول التجريبي.');return}localStorage.setItem('currentUser',JSON.stringify(user));showNote(user)}
-function register(){
-  clearError('registerError');
-  const fields={name:'regName',phone:'regPhone',building:'regBuilding',apartment:'regApartment',district:'regDistrict',servant:'regServant',grade:'regGrade',password:'regPassword'};
-  const user={};
-  for(const [key,id] of Object.entries(fields)){
-    const el=$(id);
-    user[key]=el ? String(el.value||'').trim() : '';
-  }
-  // بعض لوحات المفاتيح العربية تكتب الأرقام بصيغة عربية؛ حوّلها للأرقام القياسية.
-  user.phone=user.phone.replace(/[٠-٩۰-۹]/g,ch=>{
-    const arabic='٠١٢٣٤٥٦٧٨٩', persian='۰۱۲۳۴۵۶۷۸۹';
-    return String(arabic.indexOf(ch)>=0?arabic.indexOf(ch):persian.indexOf(ch));
-  });
-  if(Object.values(user).some(v=>!v)){setError('registerError','من فضلك كمّل كل البيانات الأول.');$('registerError').scrollIntoView({behavior:'smooth',block:'center'});return}
-  if(!/^\d{11}$/.test(user.phone)){setError('registerError','رقم التليفون لازم يكون 11 رقم.');$('registerError').scrollIntoView({behavior:'smooth',block:'center'});return}
-  let users=safeRead('users',[]);
-  if(!Array.isArray(users))users=[];
-  if(users.some(u=>u.phone===user.phone)){setError('registerError','الرقم ده مسجّل قبل كده. جرّب تسجيل الدخول.');$('registerError').scrollIntoView({behavior:'smooth',block:'center'});return}
-  try{
-    users.push(user);
-    localStorage.setItem('users',JSON.stringify(users));
-    $('loginPhone').value=user.phone;
-    $('loginPassword').value='';
-    showLogin();
-    setError('loginError','تم إنشاء الحساب على هذا الجهاز. سجّل الدخول دلوقتي.');
-    window.scrollTo({top:0,behavior:'smooth'});
-  }catch(e){
-    setError('registerError','المتصفح منع حفظ الحساب. افتح الموقع في Chrome أو Safari وجرب تاني.');
-    $('registerError').scrollIntoView({behavior:'smooth',block:'center'});
+function safeRead
+(key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}}
+function currentDay(){const d=new Date();
+return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+function progressKey
+(user,date){return `${user.phone}::${date}`}
+
+function getDone(user = safeRead('currentUser', null)) {
+  if (!user || user.isAdmin) return [];
+
+  const data = safeRead('spiritualProgress', {});
+  const key = progressKey(user, currentDay());
+
+  return data[key] || [];
+}
+
+async function loadDoneFromFirebase() {
+  const user = safeRead('currentUser', null);
+
+  if (!user || user.isAdmin || !user.uid) return;
+
+  try {
+    const doc = await db.collection('users')
+      .doc(user.uid)
+      .collection('days')
+      .doc(currentDay())
+      .get();
+
+    if (doc.exists) {
+      const saved = doc.data().done;
+
+      if (Array.isArray(saved)) {
+        const data = safeRead('spiritualProgress', {});
+        data[progressKey(user, currentDay())] = saved;
+        localStorage.setItem('spiritualProgress', JSON.stringify(data));
+      }
+    }
+
+    renderTasks();
+  } catch (e) {
+    console.error('Loading tasks error:', e);
   }
 }
-function renderTasks(){const done=getDone();$('taskList').innerHTML='';tasks.forEach(task=>{const isDone=done.includes(task.id);const button=document.createElement('button');button.type='button';button.className=`task${isDone?' done':''}`;button.setAttribute('aria-pressed',String(isDone));button.innerHTML=`<div class="task-top"><span class="task-icon">${task.icon}</span><span class="task-check">${isDone?'✓':'○'}</span></div><span class="task-name"></span>`;button.querySelector('.task-name').textContent=task.name;button.addEventListener('click',()=>toggleTask(task.id));$('taskList').appendChild(button)});const count=done.filter(id=>tasks.some(task=>task.id===id)).length,percent=Math.round(count/tasks.length*100);$('progressRing').style.setProperty('--progress',percent+'%');$('progressNumber').textContent=percent+'%';$('taskCount').textContent=`${count} من ${tasks.length} مكتملة`;$('welcomeMessage').textContent=count===tasks.length?'برافو عليك! كملت خطوات النهارده، ربنا يفرّح قلبك.':count===0?'ابدأ باللي تقدر عليه النهارده.':`أنجزت ${count} خطوات؛ كمّل على مهلك وربنا يقوّيك.`}
-function toggleTask(id){const data=safeRead('spiritualProgress',{});const done=data[currentDay()]||[];data[currentDay()]=done.includes(id)?done.filter(x=>x!==id):[...done,id];localStorage.setItem('spiritualProgress',JSON.stringify(data));renderTasks()}
-function logout(){localStorage.removeItem('currentUser');showLogin()}
+
+function setError(id,message){$(id).textContent=message;
+$(id).classList.remove('hidden')}
+function clearError(id){$(id).classList.add('hidden');
+$(id).textContent=''}
+function showLogin(){$('loginPage').classList.remove('hidden');
+$('registerPage').classList.add('hidden');
+$('spiritualNotePage').classList.add('hidden');
+$('adminPage').classList.add('hidden');
+$('visualPanel').classList.remove('hidden');
+clearError('loginError')}
+function showRegister(){$('loginPage').classList.add('hidden');
+$('registerPage').classList.remove('hidden');
+$('spiritualNotePage').classList.add('hidden');
+$('adminPage').classList.add('hidden');
+$('visualPanel').classList.remove('hidden');
+clearError('registerError')}
+function updateDateLabel(){$('todayDate').textContent='اليوم: '+new Intl.DateTimeFormat('ar-EG',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date())}
+let renderedDay=currentDay();
+function showNote(user){if(user&&user.isAdmin){showAdmin();
+return}$('loginPage').classList.add('hidden');
+$('registerPage').classList.add('hidden');
+$('adminPage').classList.add('hidden');
+$('visualPanel').classList.add('hidden');
+$('spiritualNotePage').classList.remove('hidden');
+$('welcomeName').textContent=`أهلاً يا ${user.name||'صديقنا'} ❤️`;
+updateDateLabel();
+renderedDay=currentDay();
+renderTasks()}
+
+async function login() {
+  clearError('loginError');
+
+  const phone = $('loginPhone').value.trim();
+  const password = $('loginPassword').value;
+
+  if (!phone || !password) {
+    setError('loginError', 'من فضلك اكتب رقم التليفون وكلمة المرور.');
+    return;
+  }
+
+  try {
+    let email;
+
+    if (phone === 'Admin123') {
+      if (password !== 'Admin1234321') {
+        setError('loginError', 'بيانات المدير غير صحيحة.');
+        return;
+      }
+
+      email = 'admin123@gmail.com';
+    } else {
+      const normalizedPhone = phone.replace(/[٠-٩۰-۹]/g, ch => {
+        const arabic = '٠١٢٣٤٥٦٧٨٩';
+        const persian = '۰۱۲۳۴۵۶۷۸۹';
+        const index = arabic.indexOf(ch);
+        return String(index >= 0 ? index : persian.indexOf(ch));
+      });
+
+      if (!/^\d{11}$/.test(normalizedPhone)) {
+        setError('loginError', 'رقم التليفون لازم يكون 11 رقم.');
+        return;
+      }
+
+      email = normalizedPhone + '@alnotta-ro7eya.com';
+    }
+
+    const credential = await auth.signInWithEmailAndPassword(
+      email,
+      password
+    );
+
+    const uid = credential.user.uid;
+
+    if (phone === 'Admin123') {
+      const adminDoc = await db.collection('admins').doc(uid).get();
+
+      if (!adminDoc.exists || adminDoc.data().role !== 'admin') {
+        await auth.signOut();
+        setError('loginError', 'الحساب ده مش مسجل كمدير.');
+        return;
+      }
+
+      const admin = {
+        name: 'Admin',
+        phone: '__admin__',
+        isAdmin: true,
+        uid: uid
+      };
+
+      localStorage.setItem('currentUser', JSON.stringify(admin));
+      showAdmin();
+      return;
+    }
+
+    const userDoc = await db.collection('users').doc(uid).get();
+
+    if (!userDoc.exists) {
+      await auth.signOut();
+      setError('loginError', 'بيانات الحساب مش موجودة. تواصل مع الخادم.');
+      return;
+    }
+
+    const user = {
+      ...userDoc.data(),
+      uid: uid
+    };
+
+    localStorage.setItem('currentUser', JSON.stringify(user));
+     showNote(user);
+loadDoneFromFirebase();
+
+  } catch (e) {
+    console.error('Login error:', e);
+
+    if (
+      e.code === 'auth/invalid-credential' ||
+      e.code === 'auth/user-not-found' ||
+      e.code === 'auth/wrong-password'
+    ) {
+      setError('loginError', 'البيانات مش مطابقة. راجع رقم التليفون وكلمة المرور.');
+    } else if (e.code === 'auth/invalid-email') {
+      setError('loginError', 'بيانات تسجيل الدخول غير صالحة.');
+    } else if (e.code === 'auth/too-many-requests') {
+      setError('loginError', 'محاولات كتير. استنى شوية وجرب تاني.');
+    } else {
+      setError('loginError', 'حصلت مشكلة في تسجيل الدخول. اتأكد من الإنترنت وحاول تاني.');
+    }
+  }
+}
+
+async function register() {
+  clearError('registerError');
+
+  const fields = {
+    name: 'regName',
+    phone: 'regPhone',
+    building: 'regBuilding',
+    apartment: 'regApartment',
+    district: 'regDistrict',
+    servant: 'regServant',
+    grade: 'regGrade',
+    password: 'regPassword'
+  };
+
+  const user = {};
+
+  for (const [key, id] of Object.entries(fields)) {
+    const el = $(id);
+    user[key] = el ? String(el.value || '').trim() : '';
+  }
+
+  user.phone = user.phone.replace(/[٠-٩۰-۹]/g, ch => {
+    const arabic = '٠١٢٣٤٥٦٧٨٩';
+    const persian = '۰۱۲۳۴۵۶۷۸۹';
+    const index = arabic.indexOf(ch);
+    return String(index >= 0 ? index : persian.indexOf(ch));
+  });
+
+  if (Object.values(user).some(v => !v)) {
+    setError('registerError', 'من فضلك كمّل كل البيانات الأول.');
+    $('registerError').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  if (!/^\d{11}$/.test(user.phone)) {
+    setError('registerError', 'رقم التليفون لازم يكون 11 رقم.');
+    $('registerError').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  if (user.password.length < 6) {
+    setError('registerError', 'كلمة المرور لازم تكون 6 أحرف أو أرقام على الأقل.');
+    $('registerError').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+
+  try {
+    const email = user.phone + '@alnotta-ro7eya.com';
+
+    const credential = await auth.createUserWithEmailAndPassword(
+      email,
+      user.password
+    );
+
+    await db.collection('users').doc(credential.user.uid).set({
+      name: user.name,
+      phone: user.phone,
+      building: user.building,
+      apartment: user.apartment,
+      district: user.district,
+      servant: user.servant,
+      grade: user.grade,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    $('loginPhone').value = user.phone;
+    $('loginPassword').value = '';
+    showLogin();
+
+    setError('loginError', 'تم إنشاء الحساب بنجاح. سجّل الدخول دلوقتي.');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  } catch (e) {
+    console.error('Registration error:', e);
+
+    let message = 'حصلت مشكلة أثناء إنشاء الحساب. حاول تاني.';
+
+    if (e.code === 'auth/email-already-in-use') {
+      message = 'رقم التليفون ده مسجّل قبل كده. جرّب تسجيل الدخول.';
+    } else if (e.code === 'auth/weak-password') {
+      message = 'كلمة المرور لازم تكون 6 أحرف أو أرقام على الأقل.';
+    } else if (e.code === 'auth/network-request-failed') {
+      message = 'اتأكد إن الإنترنت شغال وحاول تاني.';
+    }
+
+    setError('registerError', message);
+    $('registerError').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+function renderTasks()
+{const done=getDone(safeRead('currentUser',null));
+$('taskList').innerHTML='';
+tasks.forEach(task=>{const isDone=done.includes(task.id);const button=document.createElement('button');button.type='button';button.className=`task${isDone?' done':''}`;button.setAttribute('aria-pressed',String(isDone));button.innerHTML=`<div class="task-top"><span class="task-icon">${task.icon}</span><span class="task-check">${isDone?'✓':'○'}</span></div><span class="task-name"></span>`;button.querySelector('.task-name').textContent=task.name;button.addEventListener('click',()=>toggleTask(task.id));$('taskList').appendChild(button)});
+const count=done.filter(id=>tasks.some(task=>task.id===id)).length,percent=Math.round(count/tasks.length*100);
+$('progressRing').style.setProperty('--progress',percent+'%');
+$('progressNumber').textContent=percent+'%';
+$('taskCount').textContent=`${count} من ${tasks.length} مكتملة`;
+$('welcomeMessage').textContent=count===tasks.length?'برافو عليك! كملت خطوات النهارده، ربنا يفرّح قلبك.':count===0?'ابدأ باللي تقدر عليه النهارده.':`أنجزت ${count} خطوات؛ كمّل على مهلك وربنا يقوّيك.`}
+
+async function toggleTask(id) {
+  const user = safeRead('currentUser', null);
+
+  if (!user || user.isAdmin) return;
+
+  const data = safeRead('spiritualProgress', {});
+  const key = progressKey(user, currentDay());
+  const done = data[key] || [];
+
+  const nextDone = done.includes(id)
+    ? done.filter(x => x !== id)
+    : [...done, id];
+
+  // حفظ الإنجاز محليًا حتى تظهر النتيجة فورًا
+  data[key] = nextDone;
+  localStorage.setItem('spiritualProgress', JSON.stringify(data));
+  renderTasks();
+
+  // حفظ الإنجاز في Firebase
+  if (!user.uid) {
+    setError(
+      'loginError',
+      'الحساب محتاج تسجيل دخول من جديد عشان المزامنة تشتغل.'
+    );
+    return;
+  }
+
+  try {
+    await db.collection('users')
+      .doc(user.uid)
+      .collection('days')
+      .doc(currentDay())
+      .set({
+        done: nextDone,
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+      });
+
+    console.log('تم حفظ إنجازات اليوم في Firebase.');
+  } catch (e) {
+    console.error('Task sync error:', e);
+    setError(
+      'loginError',
+      'تعذر مزامنة الإنجازات. اتأكد من الإنترنت وحاول تاني.'
+    );
+  }
+}
+
+let selectedAdminUser=null;
+let selectedAdminGrade='الكل';
+
+function showAdmin(){
+  $('loginPage').classList.add('hidden');
+  $('registerPage').classList.add('hidden');
+  $('spiritualNotePage').classList.add('hidden');
+  $('visualPanel').classList.add('hidden');
+  $('adminPage').classList.remove('hidden');
+  $('adminHistory').classList.add('hidden');
+  selectedAdminUser=null;
+  selectedAdminGrade='الكل';
+  renderAdminUsers();
+}
+
+function filterAdminGrade(grade){
+  selectedAdminGrade=grade;
+  selectedAdminUser=null;
+  $('adminHistory').classList.add('hidden');
+  document.querySelectorAll('.grade-card').forEach(card=>{
+    card.classList.toggle('active',card.dataset.grade===grade);
+  });
+  renderAdminUsers();
+}
+
+function renderAdminUsers(){
+  const users=safeRead('users',[]);
+  const root=$('adminUsersList');
+  root.innerHTML='';
+  const query=String($('adminSearch')?.value||'').trim().toLocaleLowerCase('ar');
+  const grades=['أولى إعدادي','ثانية إعدادي','ثالثة إعدادي'];
+  $('countFirstPrep').textContent=users.filter(user=>user.grade===grades[0]).length;
+  $('countSecondPrep').textContent=users.filter(user=>user.grade===grades[1]).length;
+  $('countThirdPrep').textContent=users.filter(user=>user.grade===grades[2]).length;
+  const filtered=users.filter(user=>{
+    const gradeMatches=selectedAdminGrade==='الكل'||user.grade===selectedAdminGrade;
+    const nameMatches=String(user.name||'').toLocaleLowerCase('ar').includes(query);
+    return gradeMatches&&nameMatches;
+  });
+  $('adminUserCount').textContent=`${filtered.length} من ${users.length} مخدوم`;
+  if(!users.length){
+    root.innerHTML='<div class="empty-state">لسه مفيش مخدومين مسجلين على الجهاز ده.</div>';
+    return;
+  }
+  if(!filtered.length){
+    root.innerHTML='<div class="empty-state">مفيش مخدومين في الصف ده أو الاسم ده.</div>';
+    return;
+  }
+  filtered.forEach(user=>{
+    const b=document.createElement('button');
+    b.type='button';
+    b.className='history-card';
+    b.textContent=`${selectedAdminUser&&selectedAdminUser.phone===user.phone?'▼':'▶'}  ${user.name||'بدون اسم'} — ${user.grade||'الصف غير مسجل'}`;
+    b.setAttribute('aria-expanded',String(Boolean(selectedAdminUser&&selectedAdminUser.phone===user.phone)));
+    b.addEventListener('click',()=>{
+      if(selectedAdminUser&&selectedAdminUser.phone===user.phone){
+        selectedAdminUser=null;
+        $('adminHistory').classList.add('hidden');
+        renderAdminUsers();
+        return;
+      }
+      selectedAdminUser=user;
+      renderAdminUsers();
+      showUserHistory(user);
+      toggleStudentData();
+    });
+    root.appendChild(b);
+  });
+}
+
+function showUserHistory(user){
+$('adminHistory').classList.remove('hidden');
+$('adminDayTasks').classList.add('hidden');
+$('studentDataPanel').classList.add('hidden');
+$('studentDataPanel').innerHTML='';
+$('toggleStudentData').textContent='بيانات المخدوم ده';
+$('historyTitle').textContent=`سجل ${user.name||'المخدوم'}`;
+$('adminDates').innerHTML='';
+const start=new Date(2026,9,21);
+const end=new Date();
+end.setHours(0,0,0,0);
+const dates=[];
+for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){dates.push(`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`)}
+dates.forEach(date=>{const b=document.createElement('button');b.type='button';b.className='history-card';b.textContent=formatDate(date);b.addEventListener('click',()=>showDayTasks(user,date));$('adminDates').appendChild(b)});
+}
+function toggleStudentData(){
+const panel=$('studentDataPanel');
+if(!selectedAdminUser)return;
+if(!panel.classList.contains('hidden')){panel.classList.add('hidden');
+$('toggleStudentData').textContent='بيانات المخدوم ده';
+return}
+const u=selectedAdminUser;
+const fields=[['الاسم بالكامل',u.name],['رقم التليفون',u.phone],['كلمة المرور',u.password],['رقم العمارة',u.building],['رقم الشقة',u.apartment],['الحي السكني',u.district],['اسم الخادم',u.servant],['الصف الدراسي',u.grade]];
+panel.innerHTML='';
+const grid=document.createElement('div');
+grid.className='task-grid';
+fields.forEach(([label,value])=>{const card=document.createElement('div');card.className='history-task';const strong=document.createElement('strong');strong.textContent=label+' : ';card.appendChild(strong);card.appendChild(document.createTextNode(value||'غير مسجل'));grid.appendChild(card)});
+panel.appendChild(grid);
+panel.classList.remove('hidden');
+$('toggleStudentData').textContent='إخفاء بيانات المخدوم';
+}
+function formatDate(date){const d=new Date(date+'T12:00:00');
+return new Intl.DateTimeFormat('ar-EG',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d)}
+function showDayTasks(user,date){
+const data=safeRead('spiritualProgress',{});
+const done=data[progressKey(user,date)]||[];
+$('adminDayTasks').classList.remove('hidden');
+$('historyDateTitle').textContent='مهام يوم '+formatDate(date);
+$('adminTaskList').innerHTML='';
+tasks.forEach(task=>{const item=document.createElement('div');const complete=done.includes(task.id);item.className='history-task'+(complete?' done':'');item.textContent=`${complete?'✓':'○'} ${task.name}${complete?' — مكتملة':' — لم تُعلَّم كمكتملة'}`;$('adminTaskList').appendChild(item)});
+$('adminDayTasks').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function logout(){localStorage.removeItem('currentUser');
+$('loginPhone').value='';
+$('loginPassword').value='';
+showLogin()}
 // تحديث التاريخ تلقائيًا؛ وبعد منتصف الليل يبدأ يوم جديد بمهام غير محددة.
 setInterval(()=>{const today=currentDay();if(today!==renderedDay){renderedDay=today;updateDateLabel();if(!$('spiritualNotePage').classList.contains('hidden'))renderTasks()}},15000);
 window.addEventListener('DOMContentLoaded',()=>{
-  const registerButton=$('registerButton');
-  if(registerButton)registerButton.addEventListener('click',register);
-  const user=safeRead('currentUser',null);
-  if(user)showNote(user);else showLogin();
+const registerButton=$('registerButton');
+if(registerButton)registerButton.addEventListener('click',register);
+const user=safeRead('currentUser',null);
+if(user)showNote(user);else showLogin();
 });
 </script>
+
+
 </body>
 </html>
