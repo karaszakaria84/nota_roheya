@@ -953,8 +953,9 @@ async function login() {
       uid: uid
  
     };
-localStorage.setItem('currentUser', JSON.stringify(user));
-showNote(user);
+
+    localStorage.setItem('currentUser', JSON.stringify(user));
+     showNote(user);
 loadDoneFromFirebase();
 
   } catch (e) {
