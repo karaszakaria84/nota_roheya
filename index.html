@@ -1168,49 +1168,100 @@ function filterAdminGrade(grade){
   renderAdminUsers();
 }
 
-function renderAdminUsers(){
-  const users=safeRead('users',[]);
-  const root=$('adminUsersList');
-  root.innerHTML='';
-  const query=String($('adminSearch')?.value||'').trim().toLocaleLowerCase('ar');
-  const grades=['أولى إعدادي','ثانية إعدادي','ثالثة إعدادي'];
-  $('countFirstPrep').textContent=users.filter(user=>user.grade===grades[0]).length;
-  $('countSecondPrep').textContent=users.filter(user=>user.grade===grades[1]).length;
-  $('countThirdPrep').textContent=users.filter(user=>user.grade===grades[2]).length;
-  const filtered=users.filter(user=>{
-    const gradeMatches=selectedAdminGrade==='الكل'||user.grade===selectedAdminGrade;
-    const nameMatches=String(user.name||'').toLocaleLowerCase('ar').includes(query);
-    return gradeMatches&&nameMatches;
-  });
-  $('adminUserCount').textContent=`${filtered.length} من ${users.length} مخدوم`;
-  if(!users.length){
-    root.innerHTML='<div class="empty-state">لسه مفيش مخدومين مسجلين على الجهاز ده.</div>';
-    return;
-  }
-  if(!filtered.length){
-    root.innerHTML='<div class="empty-state">مفيش مخدومين في الصف ده أو الاسم ده.</div>';
-    return;
-  }
-  filtered.forEach(user=>{
-    const b=document.createElement('button');
-    b.type='button';
-    b.className='history-card';
-    b.textContent=`${selectedAdminUser&&selectedAdminUser.phone===user.phone?'▼':'▶'}  ${user.name||'بدون اسم'} — ${user.grade||'الصف غير مسجل'}`;
-    b.setAttribute('aria-expanded',String(Boolean(selectedAdminUser&&selectedAdminUser.phone===user.phone)));
-    b.addEventListener('click',()=>{
-      if(selectedAdminUser&&selectedAdminUser.phone===user.phone){
-        selectedAdminUser=null;
-        $('adminHistory').classList.add('hidden');
-        renderAdminUsers();
-        return;
-      }
-      selectedAdminUser=user;
-      renderAdminUsers();
-      showUserHistory(user);
-      toggleStudentData();
+async function renderAdminUsers() {
+  const root = $('adminUsersList');
+  root.innerHTML = '<div class="empty-state">جاري تحميل المخدومين...</div>';
+
+  try {
+    const snapshot = await db.collection('users').get();
+
+    const users = snapshot.docs.map(doc => ({
+      ...doc.data(),
+      uid: doc.id
+    }));
+
+    const query = String($('adminSearch')?.value || '')
+      .trim()
+      .toLocaleLowerCase('ar');
+
+    const grades = ['أولى إعدادي', 'ثانية إعدادي', 'ثالثة إعدادي'];
+
+    $('countFirstPrep').textContent =
+      users.filter(user => user.grade === grades[0]).length;
+
+    $('countSecondPrep').textContent =
+      users.filter(user => user.grade === grades[1]).length;
+
+    $('countThirdPrep').textContent =
+      users.filter(user => user.grade === grades[2]).length;
+
+    const filtered = users.filter(user => {
+      const gradeMatches =
+        selectedAdminGrade === 'الكل' ||
+        user.grade === selectedAdminGrade;
+
+      const nameMatches =
+        String(user.name || '').toLocaleLowerCase('ar').includes(query);
+
+      return gradeMatches && nameMatches;
     });
-    root.appendChild(b);
-  });
+
+    $('adminUserCount').textContent =
+      `${filtered.length} من ${users.length} مخدوم`;
+
+    root.innerHTML = '';
+
+    if (!users.length) {
+      root.innerHTML =
+        '<div class="empty-state">لسه مفيش مخدومين مسجلين.</div>';
+      return;
+    }
+
+    if (!filtered.length) {
+      root.innerHTML =
+        '<div class="empty-state">مفيش مخدومين في الصف ده أو بالاسم ده.</div>';
+      return;
+    }
+
+    filtered.forEach(user => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'history-card';
+
+      const selected =
+        selectedAdminUser &&
+        (selectedAdminUser.uid === user.uid ||
+          selectedAdminUser.phone === user.phone);
+
+      b.textContent =
+        `${selected ? '▼' : '▶'}  ${user.name || 'بدون اسم'} — ${user.grade || 'الصف غير مسجل'}`;
+
+      b.setAttribute('aria-expanded', String(Boolean(selected)));
+
+      b.addEventListener('click', () => {
+        if (selectedAdminUser &&
+            (selectedAdminUser.uid === user.uid ||
+             selectedAdminUser.phone === user.phone)) {
+          selectedAdminUser = null;
+          $('adminHistory').classList.add('hidden');
+          renderAdminUsers();
+          return;
+        }
+
+        selectedAdminUser = user;
+        renderAdminUsers();
+        showUserHistory(user);
+        toggleStudentData();
+      });
+
+      root.appendChild(b);
+    });
+
+  } catch (e) {
+    console.error('Loading admin users error:', e);
+    root.innerHTML =
+      '<div class="empty-state">تعذر تحميل المخدومين. اتأكد من الاتصال وحاول تاني.</div>';
+  }
 }
 
 function showUserHistory(user){
