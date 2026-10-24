@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#173f35">
-<title>النوتة الروحية | كنيسة السيدة العذراء</title>
+<title>النوتة الروحية</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
 :root{
@@ -838,62 +838,42 @@ function getDone(user = safeRead('currentUser', null)) {
   return data[key] || [];
 }
 
+
 async function loadDoneFromFirebase() {
   const user = safeRead('currentUser', null);
 
   if (!user || user.isAdmin || !user.uid) return;
 
+  const day = currentDay();
+  const key = progressKey(user, day);
+
   try {
     const doc = await db.collection('users')
       .doc(user.uid)
       .collection('days')
-      .doc(currentDay())
+      .doc(day)
       .get();
 
-    if (doc.exists) {
-      const saved = doc.data().done;
+    const data = safeRead('spiritualProgress', {});
 
-      if (Array.isArray(saved)) {
-        const data = safeRead('spiritualProgress', {});
-        data[progressKey(user, currentDay())] = saved;
-        localStorage.setItem('spiritualProgress', JSON.stringify(data));
-      }
+    if (doc.exists && Array.isArray(doc.data().done)) {
+      data[key] = doc.data().done;
+    } else {
+      data[key] = [];
     }
 
+    localStorage.setItem(
+      'spiritualProgress',
+      JSON.stringify(data)
+    );
+
     renderTasks();
+
+    console.log('تم تحميل إنجازات اليوم من Firebase');
   } catch (e) {
     console.error('Loading tasks error:', e);
   }
 }
-
-function setError(id,message){$(id).textContent=message;
-$(id).classList.remove('hidden')}
-function clearError(id){$(id).classList.add('hidden');
-$(id).textContent=''}
-function showLogin(){$('loginPage').classList.remove('hidden');
-$('registerPage').classList.add('hidden');
-$('spiritualNotePage').classList.add('hidden');
-$('adminPage').classList.add('hidden');
-$('visualPanel').classList.remove('hidden');
-clearError('loginError')}
-function showRegister(){$('loginPage').classList.add('hidden');
-$('registerPage').classList.remove('hidden');
-$('spiritualNotePage').classList.add('hidden');
-$('adminPage').classList.add('hidden');
-$('visualPanel').classList.remove('hidden');
-clearError('registerError')}
-function updateDateLabel(){$('todayDate').textContent='اليوم: '+new Intl.DateTimeFormat('ar-EG',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date())}
-let renderedDay=currentDay();
-function showNote(user){if(user&&user.isAdmin){showAdmin();
-return}$('loginPage').classList.add('hidden');
-$('registerPage').classList.add('hidden');
-$('adminPage').classList.add('hidden');
-$('visualPanel').classList.add('hidden');
-$('spiritualNotePage').classList.remove('hidden');
-$('welcomeName').textContent=`أهلاً يا ${user.name||'صديقنا'} ❤️`;
-updateDateLabel();
-renderedDay=currentDay();
-renderTasks()}
 
 async function login() {
   clearError('loginError');
@@ -971,10 +951,10 @@ async function login() {
     const user = {
       ...userDoc.data(),
       uid: uid
+ 
     };
-
-    localStorage.setItem('currentUser', JSON.stringify(user));
-     showNote(user);
+localStorage.setItem('currentUser', JSON.stringify(user));
+showNote(user);
 loadDoneFromFirebase();
 
   } catch (e) {
