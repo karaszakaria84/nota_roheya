@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#173f35">
-<title>النوتة الروحية  </title>
+<title>النوتة الروحية   </title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
 :root{
@@ -65,6 +65,12 @@ button{
   font-size:25px;
   box-shadow:0 8px 20px #173f3525
 }
+.family-label{
+  color:var(--gold-light);
+  font-size:18px;
+  font-weight:800;
+  white-space:nowrap;
+}
 .brand-name{
   font-size:16px;
   font-weight:800;
@@ -118,6 +124,13 @@ button{
   height:430px;
   left:-220px;
   top:-30px
+}
+.visual-ornament-row{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  position:relative;
+  z-index:1
 }
 .ornament{
   font-size:38px;
@@ -494,6 +507,9 @@ h1{
   margin-bottom:12px
 }
 @media(max-width:760px){
+  .family-label{font-size:15px}
+  .visual-ornament-row{gap:10px}
+  .brand{gap:8px}
   body{
     padding:14px 10px
   }
@@ -607,7 +623,7 @@ h1{
   </header>
   <main class="shell">
     <aside class="visual" id="visualPanel">
-      <div class="ornament">✝</div>
+      <div class="visual-ornament-row"><div class="ornament">✝</div><div class="family-label">اسرة اعدادى</div></div>
       <div class="verse">
 <div class="eyebrow">كَلِمَةٌ لِلْيَوْم</div>
 <h2>«اثْبُتُوا فِيَّ<br>وَأَنَا فِيكُمْ»</h2>
@@ -816,7 +832,7 @@ const firebaseConfig = {
 const tasks=[
 {id:1,name:'صلاة باكر',icon:'☀️'},
 {id:2,name:'الخلوة الروحية',icon:'🎙️'},
-{id:3,name:'الكتاب المقدس',icon:'📖'},
+{id:3,name:'الكتاب المقدس ',icon:'📖'},
 {id:4,name:'صلاة يسوع',icon:'🙏'},
 {id:5,name:'صلاة النوم',icon:'🌙'},
 {id:6,name:'مدارس الأحد',icon:'⛪'},
