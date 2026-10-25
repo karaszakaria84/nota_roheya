@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#173f35">
-<title>النوتة الروحية </title>
+<title>النوتة الروحية | كنيسة السيدة العذراء</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
 :root{
@@ -1531,10 +1531,14 @@ async function saveProfile() {
     localStorage.setItem('currentUser', JSON.stringify(nextUser));
     $('welcomeName').textContent = `أهلاً يا ${nextUser.name}`;
 
-    setError('profileError', 'تم حفظ بياناتك بنجاح ❤️');
+    setError('profileError', 'تم حفظ بياناتك بنجاح ');
   } catch (error) {
-    console.error('Profile update error:', error);
-    setError('profileError', 'تعذر حفظ البيانات. اتأكد من الإنترنت وصلاحيات Firebase.');
+     console.error('Profile update error:', error);
+
+  setError(
+    'profileError',
+    'خطأ الحفظ: ' + (error.code || error.message || 'خطأ غير معروف')
+  );
   }
 }
 
