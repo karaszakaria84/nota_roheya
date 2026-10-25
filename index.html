@@ -875,6 +875,71 @@ async function loadDoneFromFirebase() {
   }
 }
 
+function setError(id, message) {
+  const el = $(id);
+  if (!el) return;
+  el.textContent = message;
+  el.classList.remove('hidden');
+}
+
+function clearError(id) {
+  const el = $(id);
+  if (!el) return;
+  el.classList.add('hidden');
+  el.textContent = '';
+}
+
+function showLogin() {
+  $('loginPage').classList.remove('hidden');
+  $('registerPage').classList.add('hidden');
+  $('spiritualNotePage').classList.add('hidden');
+  $('adminPage').classList.add('hidden');
+  $('visualPanel').classList.remove('hidden');
+  clearError('loginError');
+}
+
+function showRegister() {
+  $('loginPage').classList.add('hidden');
+  $('registerPage').classList.remove('hidden');
+  $('spiritualNotePage').classList.add('hidden');
+  $('adminPage').classList.add('hidden');
+  $('visualPanel').classList.remove('hidden');
+  clearError('registerError');
+}
+
+function updateDateLabel() {
+  $('todayDate').textContent =
+    'اليوم: ' +
+    new Intl.DateTimeFormat('ar-EG', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    }).format(new Date());
+}
+
+let renderedDay = currentDay();
+
+function showNote(user) {
+  if (user && user.isAdmin) {
+    showAdmin();
+    return;
+  }
+
+  $('loginPage').classList.add('hidden');
+  $('registerPage').classList.add('hidden');
+  $('adminPage').classList.add('hidden');
+  $('visualPanel').classList.add('hidden');
+  $('spiritualNotePage').classList.remove('hidden');
+
+  $('welcomeName').textContent =
+    `أهلاً يا ${user.name || 'صديقنا'} `;
+
+  updateDateLabel();
+  renderedDay = currentDay();
+  renderTasks();
+}
+
 async function login() {
   clearError('loginError');
 
