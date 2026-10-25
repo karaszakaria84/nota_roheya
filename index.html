@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#173f35">
-<title>النوتة الروحية   </title>
+<title>النوتة الروحية | كنيسة السيدة العذراء</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
 :root{
@@ -1345,15 +1345,53 @@ $('toggleStudentData').textContent='إخفاء بيانات المخدوم';
 }
 function formatDate(date){const d=new Date(date+'T12:00:00');
 return new Intl.DateTimeFormat('ar-EG',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(d)}
-function showDayTasks(user,date){
-const data=safeRead('spiritualProgress',{});
-const done=data[progressKey(user,date)]||[];
-$('adminDayTasks').classList.remove('hidden');
-$('historyDateTitle').textContent='مهام يوم '+formatDate(date);
-$('adminTaskList').innerHTML='';
-tasks.forEach(task=>{const item=document.createElement('div');const complete=done.includes(task.id);item.className='history-task'+(complete?' done':'');item.textContent=`${complete?'✓':'○'} ${task.name}${complete?' — مكتملة':' — لم تُعلَّم كمكتملة'}`;$('adminTaskList').appendChild(item)});
-$('adminDayTasks').scrollIntoView({behavior:'smooth',block:'nearest'});
+
+async function showDayTasks(user, date) {
+  $('adminDayTasks').classList.remove('hidden');
+  $('historyDateTitle').textContent = 'مهام يوم ' + formatDate(date);
+  $('adminTaskList').innerHTML = 'جاري تحميل المهام...';
+
+  try {
+    if (!user.uid) {
+      throw new Error('Student UID is missing');
+    }
+
+    const doc = await db.collection('users')
+      .doc(user.uid)
+      .collection('days')
+      .doc(date)
+      .get();
+
+    const done = doc.exists && Array.isArray(doc.data().done)
+      ? doc.data().done
+      : [];
+
+    $('adminTaskList').innerHTML = '';
+
+    tasks.forEach(task => {
+      const item = document.createElement('div');
+      const complete = done.includes(task.id);
+
+      item.className = 'history-task' + (complete ? ' done' : '');
+      item.textContent =
+        `${complete ? '✓' : '○'} ${task.name}` +
+        (complete ? ' — مكتملة' : ' — لم تُعلَّم كمكتملة');
+
+      $('adminTaskList').appendChild(item);
+    });
+
+  } catch (error) {
+    console.error('Loading student day tasks error:', error);
+    $('adminTaskList').textContent =
+      'تعذر تحميل المهام. اتأكد من اتصال الإنترنت وصلاحيات Firebase.';
+  }
+
+  $('adminDayTasks').scrollIntoView({
+    behavior: 'smooth',
+    block: 'nearest'
+  });
 }
+
 function logout(){localStorage.removeItem('currentUser');
 $('loginPhone').value='';
 $('loginPassword').value='';
