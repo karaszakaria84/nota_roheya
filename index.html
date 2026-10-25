@@ -119,12 +119,29 @@ button{
   left:-220px;
   top:-30px
 }
+.visual-brand{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:14px;
+  position:relative;
+  z-index:1
+}
 .ornament{
   font-size:38px;
   color:var(--gold-light);
   opacity:.9;
   position:relative;
-  z-index:1
+  z-index:1;
+  line-height:1
+}
+.family-name{
+  color:#ffffff;
+  font-size:22px;
+  font-weight:800;
+  text-align:right;
+  direction:rtl;
+  margin:0
 }
 .verse{
   position:relative;
@@ -590,7 +607,6 @@ h1{
   .grade-card{min-height:85px;flex-direction:row;gap:12px;}
   .grade-card strong{font-size:23px;}
 }
-
 </style>
 </head>
 <body>
@@ -603,11 +619,14 @@ h1{
 <div class="brand-sub">كنيسة السيدة العذراء والأرشيدياكون حبيب جرجس</div>
 </div>
 </div>
-    <div class="top-pill">✦ خطوة صغيرة كل يوم</div>
+    <div class="top-pill"> خطوة صغيرة كل يوم</div>
   </header>
   <main class="shell">
     <aside class="visual" id="visualPanel">
-      <div class="ornament">✝</div>
+      <div class="visual-brand">
+        <div class="ornament">✝</div>
+        <div class="family-name">أسرة إعدادي</div>
+      </div>
       <div class="verse">
 <div class="eyebrow">آيَةٌ لِلْيَوْم</div>
 <h2 id="dailyVerseText">«اثْبُتُوا فِيَّ<br>وَأَنَا فِيكُمْ»</h2>
