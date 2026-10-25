@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#173f35">
-<title>النوتة الروحية   </title>
+<title>النوتة الروحية | كنيسة السيدة العذراء</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
 :root{
@@ -65,12 +65,6 @@ button{
   font-size:25px;
   box-shadow:0 8px 20px #173f3525
 }
-.family-label{
-  color:var(--gold-light);
-  font-size:18px;
-  font-weight:800;
-  white-space:nowrap;
-}
 .brand-name{
   font-size:16px;
   font-weight:800;
@@ -124,13 +118,6 @@ button{
   height:430px;
   left:-220px;
   top:-30px
-}
-.visual-ornament-row{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  position:relative;
-  z-index:1
 }
 .ornament{
   font-size:38px;
@@ -507,9 +494,6 @@ h1{
   margin-bottom:12px
 }
 @media(max-width:760px){
-  .family-label{font-size:15px}
-  .visual-ornament-row{gap:10px}
-  .brand{gap:8px}
   body{
     padding:14px 10px
   }
@@ -623,11 +607,11 @@ h1{
   </header>
   <main class="shell">
     <aside class="visual" id="visualPanel">
-      <div class="visual-ornament-row"><div class="ornament">✝</div><div class="family-label">اسرة اعدادى</div></div>
+      <div class="ornament">✝</div>
       <div class="verse">
-<div class="eyebrow">آيَةٌ لِلْيَوْم</div>
-<h2>«اثْبُتُوا فِيَّ<br>وَأَنَا فِيكُمْ»</h2>
-<p>اجعل لكل يوم وقتًا هادئًا مع الله،<br>فالنمو الروحي يبدأ بخطوة صغيرة وأمينة.</p>
+<div class="eyebrow">كَلِمَةٌ لِلْيَوْم</div>
+<h2 id="dailyVerseText">«اثْبُتُوا فِيَّ<br>وَأَنَا فِيكُمْ»</h2>
+<p id="dailyVerseNote">اجعل لكل يوم وقتًا هادئًا مع الله،<br>فالنمو الروحي يبدأ بخطوة صغيرة وأمينة.</p>
 </div>
       <div class="visual-foot">كنيسة السيدة العذراء والأرشيدياكون حبيب جرجس · العبور الجديدة</div>
     </aside>
@@ -648,7 +632,7 @@ h1{
       <button class="btn" onclick="login()">تسجيل الدخول</button>
       <div class="switch">لسه معندكش حساب؟ <span class="link" onclick="showRegister()">سجّل حساب جديد</span>
 </div>
-      <div class="notice">كنيسة السيدة العذراء مريم والارشى دياكون حبيب جرجس</div>
+      <div class="notice">نسخة تجريبية تحفظ البيانات على هذا الجهاز فقط.</div>
     </section>
     <section class="panel hidden" id="registerPage">
       <div class="logo-small">🌿</div>
@@ -729,9 +713,11 @@ h1{
 </div>
 </div>
 
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin:16px 0"><button class="btn" type="button" onclick="showFruits()">🌱 ثماري</button></div>
+      <section id="fruitsPanel" class="hidden" style="background:#fffdf8;border:1px solid #e8e2d5;border-radius:18px;padding:18px;margin:12px 0"><div class="section-title"><h3>🌱 ثماري الأسبوعية</h3><button class="btn btn-light" type="button" onclick="hideFruits()">إغلاق</button></div><p id="fruitWeekDates"></p><div id="fruitStats" class="task-grid"></div><div id="fruitComparison" style="margin-top:14px;font-weight:700"></div><div id="fruitLadder" style="margin-top:10px"></div></section>
       <div class="section-title">
 <h3>خطواتك النهارده</h3>
-<span id="taskCount">0 من 9 مكتملة</span>
+<span id="taskCount">0 من 8 مكتملة</span>
 </div>
       <div class="task-grid" id="taskList">
 </div>
@@ -748,6 +734,7 @@ h1{
 </div>
         <button class="btn logout" onclick="logout()">تسجيل خروج</button>
       </div>
+      <section style="background:#fffdf8;border:1px solid #e8e2d5;border-radius:18px;padding:18px;margin:12px 0"><div class="section-title"><h3>🏆 أوائل التقدم هذا الأسبوع</h3></div><p style="font-size:13px">التقدم محسوب من بيانات الأسبوع الحالي مقارنة بالسابق.</p><div id="weeklyLeaders" class="task-grid">جاري حساب التقدم...</div></section>
       <div class="section-title">
 <h3>أسماء المخدومين</h3>
 <span id="adminUserCount">0 مخدوم</span>
@@ -843,6 +830,34 @@ function safeRead
 (key,fallback){try{return JSON.parse(localStorage.getItem(key))??fallback}catch{return fallback}}
 function currentDay(){const d=new Date();
 return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`}
+
+// آية اليوم: الاختيار مرتبط بالتاريخ المحلي، لذلك لا تتغير الآية مع تحديث الصفحة في نفس اليوم.
+const dailyVerses = [
+  {text:'«اثْبُتُوا فِيَّ<br>وَأَنَا فِيكُمْ»',ref:'يوحنا ١٥: ٤',note:'خد كل يوم خطوة صغيرة مع ربنا، وخلي علاقتك بيه تكبر يوم ورا يوم.'},
+  {text:'«كُلُّ شَيْءٍ مُسْتَطَاعٌ<br>لِلْمُؤْمِنِ»',ref:'مرقس ٩: ٢٣',note:'ابدأ يومك بالإيمان والصلاة، واطلب من ربنا يسندك في كل خطوة.'},
+  {text:'«صَلُّوا بِلاَ<br>انْقِطَاعٍ»',ref:'١ تسالونيكي ٥: ١٧',note:'خصص وقتًا للصلاة كل يوم، حتى لو بدأت بدقائق قليلة.'},
+  {text:'«سِرَاجٌ لِرِجْلِي<br>كَلاَمُكَ»',ref:'مزمور ١١٩: ١٠٥',note:'افتح الكتاب المقدس كل يوم، وخلي كلمة ربنا تنوّر طريقك.'},
+  {text:'«قَرِيبٌ هُوَ الرَّبُّ<br>مِنَ الْمُنْكَسِرِي الْقُلُوبِ»',ref:'مزمور ٣٤: ١٨',note:'مهما كان يومك صعب، ارجع لربنا واحكيله اللي جواك.'},
+  {text:'«تُوبُوا وَارْجِعُوا<br>لِتُمْحَى خَطَايَاكُمْ»',ref:'أعمال الرسل ٣: ١٩',note:'لما تقع، متيأسش؛ ارجع لربنا وابدأ من جديد.'},
+  {text:'«اِجْتَهِدُوا أَنْ تَكُونُوا<br>بِلاَ دَنَسٍ وَلاَ عَيْبٍ»',ref:'٢ بطرس ٣: ١٤',note:'خلي عندك رغبة كل يوم إنك تنمو وتعيش قريب من ربنا.'},
+  {text:'«اَلرَّبُّ رَاعِيَّ<br>فَلاَ يُعْوِزُنِي شَيْءٌ»',ref:'مزمور ٢٣: ١',note:'سلّم يومك لربنا واثق إنه يرعاك ويقودك.'},
+  {text:'«اِفْرَحُوا فِي الرَّبِّ<br>كُلَّ حِينٍ»',ref:'فيلبي ٤: ٤',note:'اشكر ربنا على عطاياه، وخلي فرحك بيه يرافقك طول اليوم.'},
+  {text:'«كَلِمَتُكَ حَقٌّ»',ref:'يوحنا ١٧: ١٧',note:'اقرأ آية وتأمل فيها، وحاول تعيش معناها النهارده.'},
+  {text:'«مُسْتَنِدِينَ عَلَى<br>نِعْمَةِ اللهِ»',ref:'١ بطرس ٥: ١٢',note:'مش لازم تعمل كل حاجة مرة واحدة؛ اطلب نعمة ربنا وخد خطوة.'},
+  {text:'«اِسْهَرُوا وَصَلُّوا»',ref:'متى ٢٦: ٤١',note:'خلي بالك من وقتك وأفكارك، وارجع للصلاة كل ما تنشغل.'},
+  {text:'«لِنَتَقَدَّمْ بِثِقَةٍ<br>إِلَى عَرْشِ النِّعْمَةِ»',ref:'عبرانيين ٤: ١٦',note:'اتكلم مع ربنا ببساطة، فهو يسمعك ويفتح لك طريق الرجوع.'},
+  {text:'«كُلُّ مَا تَفْعَلُونَهُ<br>فَاعْمَلُوا مِنَ الْقَلْبِ»',ref:'كولوسي ٣: ٢٣',note:'اعمل مهامك الروحية بمحبة، مش لمجرد إنك تحط علامة صح.'}
+];
+function updateDailyVerse(){
+  const textEl=document.getElementById('dailyVerseText');
+  const noteEl=document.getElementById('dailyVerseNote');
+  if(!textEl || !noteEl) return;
+  const today=currentDay();
+  const dayNumber=Math.floor(new Date(today+'T12:00:00').getTime()/86400000);
+  const verse=dailyVerses[((dayNumber % dailyVerses.length)+dailyVerses.length)%dailyVerses.length];
+  textEl.innerHTML=verse.text;
+  noteEl.innerHTML=verse.note+'<br><span style="font-size:11px;opacity:.85">'+verse.ref+'</span>';
+}
 function progressKey
 (user,date){return `${user.phone}::${date}`}
 
@@ -1208,6 +1223,40 @@ async function toggleTask(id) {
   }
 }
 
+function getSpiritualWeek(offset=0){const n=new Date();n.setHours(12,0,0,0);const back=(n.getDay()-3+7)%7;const start=new Date(n);start.setDate(n.getDate()-back+offset*7);const end=new Date(start);end.setDate(start.getDate()+7);const key=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;const fmt=d=>`${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}`;return {from:key(start),to:key(end),label:`${fmt(start)} إلى ${fmt(end)}`};}
+function hideFruits(){$('fruitsPanel').classList.add('hidden');}
+function showFruits(){$('fruitsPanel').classList.remove('hidden');$('fruitsPanel').scrollIntoView({behavior:'smooth',block:'start'});renderFruits().catch(e=>{console.error(e);$('fruitStats').textContent='تعذر تحميل الثمار. اتأكد من الإنترنت.';});}
+async function readWeekDone(uid,w){const snap=await db.collection('users').doc(uid).collection('days').where(firebase.firestore.FieldPath.documentId(),'>=',w.from).where(firebase.firestore.FieldPath.documentId(),'<',w.to).get();const counts={اعتراف:0,تناول:0,خلوة:0};snap.forEach(doc=>(doc.data().done||[]).forEach(id=>{if(Number(id)===8)counts.اعتراف++;if(Number(id)===7)counts.تناول++;if(Number(id)===2)counts.خلوة++;}));return counts;}
+async function renderFruits(){
+ const u=safeRead('currentUser',null); if(!u||!u.uid)return;
+ const w=getSpiritualWeek(0),pw=getSpiritualWeek(-1),ppw=getSpiritualWeek(-2);
+ $('fruitWeekDates').textContent='الأسبوع الحالي: '+w.label;
+ const [current,previous,older]=await Promise.all([
+  readWeekDone(u.uid,w),readWeekDone(u.uid,pw),readWeekDone(u.uid,ppw)
+ ]);
+ const goals={اعتراف:1,تناول:1,خلوة:7};
+ $('fruitStats').innerHTML=Object.keys(goals).map(k=>`<div class="history-task"><strong>${k}</strong><div style="font-size:22px;margin:8px 0">${current[k]} مرة</div><small>${Math.min(100,Math.round(current[k]/goals[k]*100))}% من الهدف الأسبوعي</small></div>`).join('');
+ // تقييم السلم مرة واحدة فقط لكل أسبوع، اعتمادًا على آخر أسبوع مكتمل مقارنة بالأسبوع المكتمل الذي قبله.
+ const score=o=>Object.values(o).reduce((sum,v)=>sum+v,0);
+ const ladder=safeRead('spiritualLadder',{}), processed=safeRead('spiritualLadderProcessedWeek',{});
+ let level=Number(ladder[u.uid]||0);
+ let msg='لسه بنجمع ثمار الأسبوع الحالي 🌱';
+ if(processed[u.uid]!==w.from){
+   const recent=score(previous),olderScore=score(older);
+   if(recent>olderScore){level=Math.min(10,level+1);msg='كويس جدًا، في تقدم! طلعت درجة جديدة، كمل وربنا يقوّيك 🌿';}
+   else if(recent<olderScore){level=Math.max(0,level-1);msg='خلي بالك من المستوى، والأسبوع الجاي حاول تتقدم 🌱';}
+   else {msg='عاش، حافظت على نفس المستوى، بس عاوزين نبقى أحسن 💚';}
+   ladder[u.uid]=level; processed[u.uid]=w.from;
+   localStorage.setItem('spiritualLadder',JSON.stringify(ladder));
+   localStorage.setItem('spiritualLadderProcessedWeek',JSON.stringify(processed));
+ } else {
+   msg='تقييم الأسبوع اتسجل بالفعل؛ درجتك مش هتتغير تاني الأسبوع ده 🌱';
+ }
+ $('fruitComparison').textContent='مقارنة الأسبوع المكتمل السابق بالأسبوع الذي قبله: '+msg;
+ $('fruitLadder').innerHTML=`<strong>سلّم التقدم: ${level===0?'بداية السلم':'الدرجة '+level+' من 10'}</strong><div style="display:flex;gap:4px;align-items:end;height:65px;margin-top:8px">${Array.from({length:10},(_,i)=>`<span style="flex:1;height:${8+(i+1)*5}px;background:${i<level?'#245849':'#d9dfd7'};border-radius:3px 3px 0 0"></span>`).join('')}</div>`;
+}
+async function renderWeeklyLeaders(){const root=$('weeklyLeaders');if(!root)return;try{const w=getSpiritualWeek(0),pw=getSpiritualWeek(-1),snap=await db.collection('users').get(),users=snap.docs.map(d=>({...d.data(),uid:d.id})).filter(u=>['أولى إعدادي','ثانية إعدادي','ثالثة إعدادي'].includes(u.grade));const out=[];for(const grade of ['أولى إعدادي','ثانية إعدادي','ثالثة إعدادي']){let best=null;for(const u of users.filter(x=>x.grade===grade)){const [a,b]=await Promise.all([readWeekDone(u.uid,w),readWeekDone(u.uid,pw)]);const score=Object.values(a).reduce((m,v)=>m+v,0)-Object.values(b).reduce((m,v)=>m+v,0);if(!best||score>best.score)best={name:u.name||'مخدوم',score};}out.push(`<div class="history-task"><strong>${grade}</strong><p>${best?best.name:'لا يوجد مخدومون'}</p><small>${best&&best.score>0?'حقق تقدمًا هذا الأسبوع':'لم يظهر تقدم أعلى من الأسبوع السابق'}</small></div>`);}root.innerHTML=out.join('');}catch(e){console.error(e);root.textContent='تعذر تحميل ترتيب الأسبوع؛ راجع صلاحيات Firebase.'}}
+
 let selectedAdminUser=null;
 let selectedAdminGrade='الكل';
 
@@ -1221,6 +1270,7 @@ function showAdmin(){
   selectedAdminUser=null;
   selectedAdminGrade='الكل';
   renderAdminUsers();
+  renderWeeklyLeaders();
 }
 
 function filterAdminGrade(grade){
@@ -1415,8 +1465,9 @@ $('loginPassword').value='';
 showLogin()}
 
 // تحديث التاريخ تلقائيًا؛ وبعد منتصف الليل يبدأ يوم جديد بمهام غير محددة.
-setInterval(()=>{const today=currentDay();if(today!==renderedDay){renderedDay=today;updateDateLabel();if(!$('spiritualNotePage').classList.contains('hidden'))renderTasks()}},15000);
+setInterval(()=>{const today=currentDay();updateDailyVerse();if(today!==renderedDay){renderedDay=today;updateDateLabel();if(!$('spiritualNotePage').classList.contains('hidden'))renderTasks()}},15000);
 window.addEventListener('DOMContentLoaded',()=>{
+updateDailyVerse();
 const registerButton=$('registerButton');
 if(registerButton)registerButton.addEventListener('click',register);
 const user=safeRead('currentUser',null);
