@@ -607,6 +607,61 @@ h1{
   .grade-card{min-height:85px;flex-direction:row;gap:12px;}
   .grade-card strong{font-size:23px;}
 }
+
+/* Attendance page visual refresh */
+.attendance-page{padding:0!important;margin:12px 0!important;overflow:hidden;background:#f8f7f2;border:1px solid #e6e1d4;border-radius:26px;box-shadow:0 24px 70px rgba(25,55,44,.12)}
+.attendance-hero{position:relative;isolation:isolate;overflow:hidden;min-height:235px;padding:26px clamp(20px,4vw,42px) 34px;background:linear-gradient(120deg,#102f28,#1b4b3d 58%,#2b6250);color:#fff}
+.attendance-hero:before,.attendance-hero:after{content:"";position:absolute;z-index:-1;border:1px solid #ffffff18;border-radius:50%;width:310px;height:310px;left:-90px;top:-170px}
+.attendance-hero:after{width:430px;height:430px;left:-150px;top:-205px}
+.attendance-hero-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.attendance-brand-icon{width:44px;height:44px;border:1px solid #d9bd7c66;border-radius:15px;display:grid;place-items:center;color:#e7d29e;font-size:25px;background:#ffffff0b}
+.attendance-back{border:1px solid #ffffff38;color:#fff;background:#ffffff12;border-radius:12px;padding:9px 14px;font:700 12px 'Cairo',sans-serif;cursor:pointer}
+.attendance-hero-copy{margin-top:25px;max-width:620px}
+.attendance-kicker{display:inline-block;color:#e7d29e;font-size:11px;font-weight:800;letter-spacing:.5px}
+.attendance-hero h1{color:#fff;font-size:clamp(27px,4vw,38px);margin:5px 0 4px}
+.attendance-hero-copy p{color:#d9e6df;margin:0;font-size:13px;line-height:1.9}
+.attendance-hero-stamp{display:none!important;position:absolute;left:clamp(22px,7vw,82px);bottom:30px;width:110px;height:110px;border:1px solid #e8d7ad55;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#f0dfb8;background:#ffffff08;transform:rotate(-8deg)}
+.attendance-hero-stamp span,.attendance-hero-stamp small{font-size:10px}.attendance-hero-stamp strong{font-size:25px;line-height:1.2;color:#e5c77f}
+.attendance-content{padding:clamp(16px,3vw,30px);display:grid;gap:18px}
+.attendance-date-card,.attendance-list-card,.attendance-register-card{background:#fff;border:1px solid #e9e5db;border-radius:20px;padding:clamp(16px,2.5vw,24px);box-shadow:0 8px 24px #233d3010}
+.attendance-card-heading{display:flex;align-items:center;gap:13px;margin-bottom:18px}
+.attendance-heading-icon{flex:0 0 44px;width:44px;height:44px;border-radius:14px;background:#edf3ed;color:#285b47;display:grid;place-items:center;font-size:23px}
+.attendance-heading-icon.mic{background:#f6f0e2;color:#a17a32}
+.attendance-card-heading h2,.attendance-list-heading h2{font-size:17px;color:#1d4235;margin:0 0 3px}
+.attendance-card-heading p{font-size:11px;color:#849087;margin:0;line-height:1.8}
+.attendance-date-fields{display:grid;grid-template-columns:1fr 34px 1fr;align-items:end;gap:12px}
+.attendance-date-fields .form-group{margin:0}.attendance-date-fields .form-group label,.attendance-manual label{font-size:11px;color:#52645a;font-weight:800}
+.attendance-date-fields select,.attendance-date-fields input,.attendance-manual input{width:100%;height:47px;border:1px solid #e2e5dc;border-radius:12px;padding:0 13px;background:#fbfcf9;color:#243b30;outline:none;font-family:'Cairo',sans-serif}
+.attendance-date-fields select:focus,.attendance-date-fields input:focus,.attendance-manual input:focus{border-color:#47745e;box-shadow:0 0 0 3px #47745e18}
+.attendance-date-or{height:47px;display:grid;place-items:center;color:#a5aa9f;font-size:11px}
+.attendance-selected-date{margin-top:15px;padding:10px 13px;border-radius:11px;background:#f3f7f1;color:#315944;font-size:12px;font-weight:700;display:flex;align-items:center;gap:9px}
+.date-dot{width:8px;height:8px;background:#5b936d;border-radius:50%;box-shadow:0 0 0 4px #5b936d20}
+.attendance-list-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.attendance-kicker.dark{color:#a17e3e}.attendance-count{min-width:62px;height:58px;border-radius:15px;background:#f4f6ef;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#315943}.attendance-count strong{font-size:20px;line-height:1.1}.attendance-count span{font-size:10px}
+.attendance-records,.attendance-matches{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.attendance-records .history-task,.attendance-matches button{margin:0!important;min-width:0;border:1px solid #e8ece5!important;border-radius:14px!important;background:#fbfcf9!important;padding:13px 15px!important;box-shadow:none!important;color:#263b30!important}
+.attendance-records .history-task strong{display:block;color:#244b39;font-size:13px}.attendance-records .history-task p{margin:3px 0;color:#69786e;font-size:11px}.attendance-records .history-task small{color:#9a8a68;font-size:10px}
+.attendance-add-row{display:flex;align-items:center;justify-content:space-between;gap:12px;border-top:1px solid #edf0e9;margin-top:17px;padding-top:16px;color:#77847a;font-size:11px}
+.attendance-add-button,.attendance-listen-button,.attendance-confirm-button{border:0;border-radius:12px;background:#1b4b3b;color:#fff;padding:11px 17px;font:800 12px 'Cairo',sans-serif;cursor:pointer;box-shadow:0 5px 12px #1b4b3b20}
+.attendance-add-button span{font-size:17px;vertical-align:middle;margin-left:4px}.attendance-add-button:disabled,.attendance-listen-button:disabled{opacity:.45;cursor:not-allowed}
+.attendance-register-card{border-color:#e8dfc9;background:linear-gradient(145deg,#fffefa,#fbfaf5)}
+.attendance-modal-overlay{position:fixed;inset:0;z-index:9999;background:rgba(18,35,27,.62);backdrop-filter:blur(5px);display:flex;align-items:center;justify-content:center;padding:18px;overflow-y:auto}
+.attendance-modal-card{width:min(720px,100%);max-height:calc(100vh - 36px);overflow-y:auto;position:relative;box-shadow:0 24px 80px #10251d55;border:1px solid #e8dfc9;border-radius:24px;padding:clamp(18px,3vw,28px);background:linear-gradient(145deg,#fffefa,#fbfaf5)}
+.attendance-modal-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}
+.attendance-modal-close{width:40px;height:40px;border:1px solid #e8e1d3;border-radius:50%;background:#fff;color:#344c3e;font-size:23px;cursor:pointer;flex:0 0 auto}
+body.attendance-modal-open{overflow:hidden}
+@media(max-width:600px){.attendance-modal-overlay{align-items:flex-start;padding:10px}.attendance-modal-card{max-height:calc(100vh - 20px);border-radius:18px}}
+.attendance-listening-panel{display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:13px;padding:15px;border:1px solid #eee7d7;background:#faf7ef;border-radius:16px}
+.mic-orbit{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:#eee4ca;color:#8d6c31;font-size:22px;box-shadow:0 0 0 6px #eee4ca55}
+.attendance-listening-panel strong{font-size:13px;color:#3a4b3f}.attendance-listening-panel p{margin:3px 0 0;color:#7d857d;font-size:10px;line-height:1.7}
+.attendance-mic-actions{display:flex;gap:7px}.attendance-listen-button{background:#1b4b3b}.attendance-stop-button,.attendance-cancel-button{border:1px solid #e1e5dc;border-radius:11px;background:#fff;color:#58675d;padding:10px 13px;font:700 11px 'Cairo',sans-serif;cursor:pointer}.attendance-stop-button:disabled{opacity:.45;cursor:not-allowed}
+.attendance-manual{margin:17px 0 12px}.attendance-manual label{display:block;margin-bottom:7px}.attendance-matches button{text-align:right;font-family:'Cairo',sans-serif;font-size:12px;font-weight:800;cursor:pointer}.attendance-matches button:hover{border-color:#b7cbb8!important;background:#f2f7f1!important}
+.attendance-selected-student{display:grid;grid-template-columns:38px 1fr auto;gap:12px;align-items:center;margin-top:14px;padding:15px;border:1px solid #cfe0d0;border-radius:16px;background:#f2f8f1}
+.selected-check{width:34px;height:34px;border-radius:50%;background:#dceedd;color:#2e7145;display:grid;place-items:center;font-weight:900}.selected-student-copy small{font-size:10px;color:#66806c}.selected-student-copy strong{display:block;color:#214b34;font-size:14px}.selected-student-copy p{margin:3px 0 0;color:#68796c;font-size:11px}
+.attendance-confirm-actions{display:flex;gap:7px}.attendance-confirm-button{background:#2f7948}.attendance-cancel-button{padding:10px 15px}
+.attendance-privacy-note{font-size:10px;color:#8b8b7e;line-height:1.8;margin:13px 0 0}.attendance-page .empty-state{grid-column:1/-1;border:1px dashed #dce4d9;background:#fafcf9;border-radius:14px;padding:22px;text-align:center;color:#849087;font-size:12px}
+@media(max-width:650px){.attendance-hero-stamp{display:none!important;width:78px;height:78px;left:18px;bottom:24px}.attendance-hero-stamp strong{font-size:19px}.attendance-hero-stamp span,.attendance-hero-stamp small{font-size:8px}.attendance-hero-copy{max-width:75%}.attendance-date-fields{grid-template-columns:1fr;gap:8px}.attendance-date-or{height:14px}.attendance-records,.attendance-matches{grid-template-columns:1fr}.attendance-listening-panel{grid-template-columns:46px 1fr}.mic-orbit{width:42px;height:42px}.attendance-mic-actions{grid-column:1/-1}.attendance-mic-actions button{flex:1}.attendance-selected-student{grid-template-columns:34px 1fr}.attendance-confirm-actions{grid-column:1/-1}.attendance-add-row{align-items:flex-start;flex-direction:column}.attendance-add-button{width:100%}}
+
 </style>
 </head>
 <body>
@@ -625,7 +680,7 @@ h1{
     <aside class="visual" id="visualPanel">
       <div class="visual-brand">
         <div class="ornament">✝</div>
-        <div class="family-name">أسرة إعدادي</div>
+        <div class="family-name">أسرة اعدادى</div>
       </div>
       <div class="verse">
 <div class="eyebrow">آيَةٌ لِلْيَوْم</div>
@@ -699,9 +754,9 @@ h1{
 <label for="regGrade">الصف الدراسي</label>
 <select id="regGrade">
 <option value="">اختر الصف</option>
-<option>أولى إعدادي</option>
-<option>ثانية إعدادي</option>
-<option>ثالثة إعدادي</option>
+<option>أولى اعدادى</option>
+<option>ثانية اعدادى</option>
+<option>ثالثة اعدادى</option>
 </select>
 </div>
       <div class="form-group">
@@ -751,7 +806,10 @@ h1{
 <h1>لوحة الخدام ✝</h1>
 <p>اختار مخدوم علشان تشوف الأيام والمهام اللي سجلها.</p>
 </div>
-        <button class="btn logout" onclick="logout()">تسجيل خروج</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button class="btn" type="button" onclick="showAttendancePage()">📋 تسجيل الحضور</button>
+          <button class="btn logout" onclick="logout()">تسجيل خروج</button>
+        </div>
       </div>
       <section style="background:#fffdf8;border:1px solid #e8e2d5;border-radius:18px;padding:18px;margin:12px 0"><div class="section-title"><h3>🏆 أوائل التقدم هذا الأسبوع</h3></div><p style="font-size:13px">التقدم محسوب من بيانات الأسبوع الحالي مقارنة بالسابق.</p><div id="weeklyLeaders" class="task-grid">جاري حساب التقدم...</div></section>
       <div class="section-title">
@@ -805,6 +863,67 @@ h1{
         </div>
       </div>
     </section>
+    <section class="dashboard hidden attendance-page" id="attendancePage">
+      <div class="attendance-hero">
+        <div class="attendance-hero-top">
+          <div class="attendance-brand-icon">✝</div>
+          <button class="attendance-back" type="button" onclick="hideAttendancePage()">→ رجوع للوحة الخدام</button>
+        </div>
+        <div class="attendance-hero-copy">
+          <span class="attendance-kicker">خدمة إعدادي · سجل المتابعة</span>
+          <h1>تسجيل الحضور</h1>
+          <p>تابع حضور المخدومين في اجتماعات يوم الأربعاء بسهولة وتنظيم.</p>
+        </div>
+        <div class="attendance-hero-stamp"><span>الأربعاء</span><strong>✦</strong><small>معًا في طريق النمو</small></div>
+      </div>
+
+      <div class="attendance-content">
+        <section class="attendance-date-card">
+          <div class="attendance-card-heading">
+            <div class="attendance-heading-icon">▦</div>
+            <div><h2>اختيار يوم الاجتماع</h2><p>ابدأ من الأربعاء 28 أكتوبر 2026، واختر أي أربعاء بعده.</p></div>
+          </div>
+          <div class="attendance-date-fields">
+            <div class="form-group"><label for="attendanceWednesdaySelect">اختار من أيام الأربعاء</label><select id="attendanceWednesdaySelect" onchange="attendanceSelectChanged()"><option value="">اختار تاريخ الأربعاء</option></select></div>
+            <div class="attendance-date-or">أو</div>
+            <div class="form-group"><label for="attendanceDateInput">اكتب التاريخ بنفسك</label><input id="attendanceDateInput" type="date" min="2026-10-28" onchange="attendanceDateChanged()"></div>
+          </div>
+          <div class="attendance-selected-date"><span class="date-dot"></span><span id="attendanceDateStatus" role="status">اختار تاريخ الاجتماع لعرض سجل الحضور.</span></div>
+        </section>
+
+        <section class="attendance-list-card">
+          <div class="attendance-list-heading">
+            <div><span class="attendance-kicker dark">كشف الاجتماع</span><h2>المخدومون الحاضرون</h2></div>
+            <div class="attendance-count"><strong id="attendanceCount">0</strong><span>حاضر</span></div>
+          </div>
+          <div id="attendanceRecords" class="attendance-records" aria-live="polite"><div class="empty-state">اختار تاريخ الأربعاء لعرض الحضور.</div></div>
+          <div class="attendance-add-row"><span>عايز تسجل حضور مخدوم جديد؟</span><button class="attendance-add-button" id="openAttendanceRegister" type="button" onclick="openAttendanceRegister()" disabled><span>＋</span> تسجيل حضور</button></div>
+        </section>
+
+        <section id="attendanceRegisterBox" class="attendance-modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="attendanceRegisterTitle" onclick="if(event.target===this) closeAttendanceRegister()">
+          <div class="attendance-modal-card">
+          <div class="attendance-modal-top"><span class="attendance-kicker dark">تسجيل حضور جديد</span><button class="attendance-modal-close" type="button" aria-label="إغلاق" onclick="closeAttendanceRegister()">×</button></div>
+          <div class="attendance-card-heading">
+            <div class="attendance-heading-icon mic">♫</div>
+            <div><h2 id="attendanceRegisterTitle">إضافة حضور جديد</h2><p>خلي المخدوم يقول اسمه بوضوح، وبعدها راجع بياناته قبل التأكيد.</p></div>
+          </div>
+          <div class="attendance-listening-panel">
+            <div class="mic-orbit">🎙️</div>
+            <div><strong>التسجيل بالصوت</strong><p id="attendanceSpeechStatus" role="status">جاهز لسماع الاسم. اضغط ابدأ الاستماع.</p></div>
+            <div class="attendance-mic-actions"><button class="attendance-listen-button" type="button" id="startAttendanceListen" onclick="startAttendanceListening()">ابدأ الاستماع</button><button class="attendance-stop-button" type="button" id="stopAttendanceListen" onclick="stopAttendanceListening()" disabled>إيقاف</button></div>
+          </div>
+          <div class="attendance-manual"><label for="attendanceManualSearch">أو ابحث عن الاسم يدويًا</label><input id="attendanceManualSearch" type="search" placeholder="اكتب اسم المخدوم هنا..." autocomplete="off" oninput="searchAttendanceStudents()"></div>
+          <div id="attendanceMatches" class="attendance-matches" aria-live="polite"><div class="empty-state">نتائج البحث هتظهر هنا.</div></div>
+          <div id="attendanceSelected" class="attendance-selected-student hidden">
+            <span class="selected-check">✓</span><div class="selected-student-copy"><small>المخدوم المختار</small><strong id="attendanceSelectedName"></strong><p id="attendanceSelectedDetails"></p></div>
+            <div class="attendance-confirm-actions"><button class="attendance-confirm-button" type="button" id="confirmAttendanceButton" onclick="confirmAttendance()">تأكيد الحضور</button><button class="attendance-cancel-button" type="button" onclick="cancelAttendanceSelection()">إلغاء</button></div>
+          </div>
+          <p class="attendance-privacy-note">الصوت بيتحوّل لنص للبحث عن الاسم فقط، ولا يتم حفظ تسجيل صوتي. راجع الاسم والسنة الدراسية قبل تأكيد الحضور.</p>
+          </div>
+        </section>
+      </div>
+    </section>
+
   </main>
 </div>
 
@@ -1279,6 +1398,199 @@ async function renderWeeklyLeaders(){const root=$('weeklyLeaders');if(!root)retu
 let selectedAdminUser=null;
 let selectedAdminGrade='الكل';
 
+// إدارة سجل الحضور لأيام الأربعاء ابتداءً من 28-10-2026.
+const ATTENDANCE_START = '2026-10-28';
+let attendanceStudents = [];
+let attendanceSelectedStudent = null;
+let attendanceRecognition = null;
+let selectedAttendanceDate = '';
+
+function normalizeArabicName(value) {
+  return String(value || '').normalize('NFKC')
+    .replace(/[\u064B-\u065F\u0670\u0640]/g, '')
+    .replace(/[أإآٱ]/g, 'ا').replace(/ى/g, 'ي')
+    .replace(/ؤ/g, 'و').replace(/ئ/g, 'ي')
+    .replace(/ة/g, 'ه').replace(/\s+/g, ' ').trim().toLowerCase();
+}
+function isWednesdayDate(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value) || value < ATTENDANCE_START) return false;
+  const d = new Date(value + 'T12:00:00');
+  return !Number.isNaN(d.getTime()) && d.getDay() === 3;
+}
+function formatAttendanceDate(value) {
+  const [y,m,d] = value.split('-');
+  return `${d}/${m}/${y}`;
+}
+function populateWednesdayDates() {
+  const select = $('attendanceWednesdaySelect');
+  if (!select) return;
+  select.innerHTML = '<option value="">اختار تاريخ الأربعاء</option>';
+  // قائمة ممتدة لعشرين سنة، وحقل التاريخ اليدوي يتيح أي أربعاء بعد ذلك أيضًا.
+  const start = new Date(ATTENDANCE_START + 'T12:00:00');
+  for (let i = 0; i < 1044; i++) {
+    const d = new Date(start); d.setDate(start.getDate() + i * 7);
+    const value = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+    const option = document.createElement('option'); option.value = value; option.textContent = formatAttendanceDate(value);
+    select.appendChild(option);
+  }
+}
+async function loadAttendanceStudents() {
+  try {
+    const snap = await db.collection('users').get();
+    attendanceStudents = snap.docs.map(doc => ({ ...doc.data(), uid: doc.id }));
+  } catch (e) { console.error('Attendance students loading error:', e); }
+}
+function showAttendancePage() {
+  $('adminPage').classList.add('hidden');
+  $('attendancePage').classList.remove('hidden');
+  $('weeklyLeaders').parentElement.classList.add('hidden');
+  $('adminGradeCards').classList.add('hidden');
+  $('adminUserCount').parentElement.classList.add('hidden');
+  $('adminUsersList').classList.add('hidden');
+  populateWednesdayDates();
+  if (!$('attendanceDateInput').value) $('attendanceDateInput').value = ATTENDANCE_START;
+  if (!$('attendanceWednesdaySelect').value) $('attendanceWednesdaySelect').value = ATTENDANCE_START;
+  chooseAttendanceDate(ATTENDANCE_START);
+}
+function hideAttendancePage() {
+  $('attendancePage').classList.add('hidden');
+  $('adminPage').classList.remove('hidden');
+  $('weeklyLeaders').parentElement.classList.remove('hidden');
+  $('adminGradeCards').classList.remove('hidden');
+  $('adminUserCount').parentElement.classList.remove('hidden');
+  $('adminUsersList').classList.remove('hidden');
+  $('attendanceRegisterBox').classList.add('hidden');
+  cancelAttendanceSelection();
+}
+function attendanceSelectChanged() {
+  const value = $('attendanceWednesdaySelect').value;
+  if (value) { $('attendanceDateInput').value = value; chooseAttendanceDate(value); }
+}
+function attendanceDateChanged() {
+  const value = $('attendanceDateInput').value;
+  if (!isWednesdayDate(value)) {
+    $('attendanceDateStatus').textContent = 'اختار يوم أربعاء صحيح من 28/10/2026 أو بعده.';
+    $('attendanceRecords').innerHTML = '<div class="empty-state">التاريخ غير صالح؛ لازم يكون يوم الأربعاء.</div>';
+    $('openAttendanceRegister').disabled = true;
+    return;
+  }
+  $('attendanceWednesdaySelect').value = value;
+  chooseAttendanceDate(value);
+}
+async function chooseAttendanceDate(value) {
+  if (!isWednesdayDate(value)) return;
+  selectedAttendanceDate = value;
+  $('attendanceDateStatus').textContent = `سجل حضور يوم الأربعاء ${formatAttendanceDate(value)}`;
+  $('openAttendanceRegister').disabled = false;
+  $('attendanceRegisterBox').classList.add('hidden');
+  cancelAttendanceSelection();
+  await renderAttendanceRecords();
+}
+async function renderAttendanceRecords() {
+  const root = $('attendanceRecords'); root.innerHTML = '<div class="empty-state">جاري تحميل الحضور...</div>';
+  try {
+    const snap = await db.collection('attendance').doc(selectedAttendanceDate).collection('records').get();
+    $('attendanceCount').textContent = `${snap.size} مخدوم`;
+    if (snap.empty) {
+      root.innerHTML = '<div class="empty-state">لسه مفيش أسماء سجلت حضور في اليوم ده. اضغط «تسجيل حضور» للبدء.</div>';
+      return;
+    }
+    root.innerHTML = '';
+    snap.docs.forEach(doc => {
+      const record = doc.data();
+      const card = document.createElement('div'); card.className = 'history-task';
+      const name = document.createElement('strong'); name.textContent = record.name || 'مخدوم';
+      const grade = document.createElement('p'); grade.textContent = record.grade || 'السنة الدراسية غير مسجلة';
+      const time = document.createElement('small');
+      time.textContent = record.recordedAt && record.recordedAt.toDate ? `وقت التسجيل: ${record.recordedAt.toDate().toLocaleTimeString('ar-EG')}` : 'تم تسجيل الحضور';
+      card.append(name, grade, time); root.appendChild(card);
+    });
+  } catch (e) {
+    console.error('Attendance records loading error:', e);
+    root.innerHTML = '<div class="empty-state">تعذر تحميل الحضور. راجع اتصال الإنترنت وقواعد Firestore.</div>';
+  }
+}
+function openAttendanceRegister() {
+  if (!isWednesdayDate(selectedAttendanceDate)) return;
+  $('attendanceRegisterBox').classList.remove('hidden'); document.body.classList.add('attendance-modal-open');
+  $('attendanceSpeechStatus').textContent = 'اضغط ابدأ الاستماع أو ابحث بالاسم يدويًا.';
+  $('attendanceMatches').innerHTML = '<div class="empty-state">ابدأ الاستماع أو اكتب اسم المخدوم.</div>';
+  $('attendanceManualSearch').value = '';
+  cancelAttendanceSelection();
+}
+
+function closeAttendanceRegister() {
+  stopAttendanceListening();
+  $('attendanceRegisterBox').classList.add('hidden');
+  document.body.classList.remove('attendance-modal-open');
+  cancelAttendanceSelection();
+}
+function cancelAttendanceSelection() {
+  attendanceSelectedStudent = null;
+  const selected = $('attendanceSelected'); if (selected) selected.classList.add('hidden');
+}
+function showAttendanceMatches(matches) {
+  const root = $('attendanceMatches'); root.innerHTML = ''; cancelAttendanceSelection();
+  if (!matches.length) { root.innerHTML = '<div class="empty-state">مفيش اسم مطابق. جرّب مرة تانية أو ابحث يدويًا.</div>'; return; }
+  matches.slice(0, 8).forEach(student => {
+    const button = document.createElement('button'); button.type = 'button'; button.className = 'history-card';
+    button.textContent = `${student.name || 'بدون اسم'} — ${student.grade || 'السنة غير مسجلة'}`;
+    button.addEventListener('click', () => selectAttendanceStudent(student)); root.appendChild(button);
+  });
+}
+function searchAttendanceStudents(transcript) {
+  const raw = transcript !== undefined ? transcript : $('attendanceManualSearch').value;
+  const query = normalizeArabicName(raw);
+  if (!query) { $('attendanceMatches').innerHTML = '<div class="empty-state">اكتب الاسم أو ابدأ الاستماع.</div>'; cancelAttendanceSelection(); return; }
+  const matches = attendanceStudents.filter(student => {
+    const name = normalizeArabicName(student.name);
+    return name && (name.includes(query) || query.includes(name));
+  });
+  showAttendanceMatches(matches);
+  $('attendanceSpeechStatus').textContent = transcript !== undefined ? `تم سماع: «${transcript}» — اختار الاسم الصحيح.` : 'نتائج البحث بالاسم:';
+}
+function selectAttendanceStudent(student) {
+  attendanceSelectedStudent = student;
+  $('attendanceSelectedName').textContent = student.name || 'بدون اسم';
+  $('attendanceSelectedDetails').textContent = `السنة الدراسية: ${student.grade || 'غير مسجلة'}`;
+  $('attendanceSelected').classList.remove('hidden');
+}
+function startAttendanceListening() {
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRecognition) { $('attendanceSpeechStatus').textContent = 'المتصفح لا يدعم تحويل الكلام لنص. استخدم البحث اليدوي أو Chrome على أندرويد.'; return; }
+  if (attendanceRecognition) { try { attendanceRecognition.stop(); } catch (_) {} }
+  attendanceRecognition = new SpeechRecognition(); attendanceRecognition.lang = 'ar-EG';
+  attendanceRecognition.continuous = false; attendanceRecognition.interimResults = false; attendanceRecognition.maxAlternatives = 3;
+  attendanceRecognition.onstart = () => { $('attendanceSpeechStatus').textContent = '🎙️ بسمع دلوقتي... خلي المخدوم يقول اسمه.'; $('startAttendanceListen').disabled = true; $('stopAttendanceListen').disabled = false; };
+  attendanceRecognition.onresult = event => { const transcript = event.results[0][0].transcript.trim(); $('attendanceManualSearch').value = transcript; searchAttendanceStudents(transcript); };
+  attendanceRecognition.onerror = event => { const messages = {'not-allowed':'اسمح للمتصفح باستخدام الميكروفون.','no-speech':'ملحقتش أسمع الاسم. جرّب تاني.','network':'حصلت مشكلة في تحويل الكلام لنص. استخدم البحث اليدوي.'}; $('attendanceSpeechStatus').textContent = messages[event.error] || 'حصلت مشكلة أثناء الاستماع.'; };
+  attendanceRecognition.onend = () => { $('startAttendanceListen').disabled = false; $('stopAttendanceListen').disabled = true; };
+  try { attendanceRecognition.start(); } catch(e) { $('attendanceSpeechStatus').textContent = 'تعذر بدء الميكروفون. جرّب تاني.'; }
+}
+function stopAttendanceListening() { if (attendanceRecognition) { try { attendanceRecognition.stop(); } catch (_) {} } }
+async function confirmAttendance() {
+  const student = attendanceSelectedStudent, admin = auth.currentUser, day = selectedAttendanceDate;
+  if (!student || !student.uid) { $('attendanceSpeechStatus').textContent = 'اختار اسم المخدوم الأول.'; return; }
+  if (!admin) { $('attendanceSpeechStatus').textContent = 'سجّل دخول الخادم مرة تانية.'; return; }
+  if (!isWednesdayDate(day)) { $('attendanceSpeechStatus').textContent = 'اختار تاريخ أربعاء صحيح الأول.'; return; }
+  const button = $('confirmAttendanceButton'); button.disabled = true; button.textContent = 'جاري التسجيل...';
+  const recordRef = db.collection('attendance').doc(day).collection('records').doc(student.uid);
+  try {
+    await db.runTransaction(async transaction => {
+      const existing = await transaction.get(recordRef);
+      if (existing.exists) throw new Error('ATTENDANCE_ALREADY_EXISTS');
+      transaction.set(recordRef, {uid:student.uid,name:String(student.name||'').slice(0,120),grade:String(student.grade||'').slice(0,60),date:day,recordedAt:firebase.firestore.FieldValue.serverTimestamp(),recordedBy:admin.uid});
+    });
+    $('attendanceSpeechStatus').textContent = `تم تسجيل حضور ${student.name} بنجاح ✅`;
+    $('attendanceManualSearch').value = '';
+    await renderAttendanceRecords();
+    closeAttendanceRegister();
+  } catch(e) {
+    console.error('Attendance save error:', e);
+    $('attendanceSpeechStatus').textContent = e.message === 'ATTENDANCE_ALREADY_EXISTS' ? `حضور ${student.name} متسجل بالفعل في التاريخ ده.` : 'تعذر تسجيل الحضور. راجع قواعد Firestore والإنترنت.';
+  } finally { button.disabled = false; button.textContent = 'تأكيد الحضور'; }
+}
+
 function showAdmin(){
   $('loginPage').classList.add('hidden');
   $('registerPage').classList.add('hidden');
@@ -1290,6 +1602,12 @@ function showAdmin(){
   selectedAdminGrade='الكل';
   renderAdminUsers();
   renderWeeklyLeaders();
+  loadAttendanceStudents();
+  $('attendancePage').classList.add('hidden');
+  $('weeklyLeaders').parentElement.classList.remove('hidden');
+  $('adminGradeCards').classList.remove('hidden');
+  $('adminUserCount').parentElement.classList.remove('hidden');
+  $('adminUsersList').classList.remove('hidden');
 }
 
 function filterAdminGrade(grade){
@@ -1420,7 +1738,7 @@ if(!panel.classList.contains('hidden')){panel.classList.add('hidden');
 $('toggleStudentData').textContent='بيانات المخدوم ده';
 return}
 const u=selectedAdminUser;
-const fields=[['الاسم بالكامل',u.name],['رقم التليفون',u.phone],['كلمة المرور',u.password],['رقم العمارة',u.building],['رقم الشقة',u.apartment],['الحي السكني',u.district],['اسم الخادم',u.servant],['الصف الدراسي',u.grade]];
+const fields=[['الاسم بالكامل',u.name],['رقم التليفون',u.phone],['رقم العمارة',u.building],['رقم الشقة',u.apartment],['الحي السكني',u.district],['اسم الخادم',u.servant],['الصف الدراسي',u.grade]];
 panel.innerHTML='';
 const grid=document.createElement('div');
 grid.className='task-grid';
