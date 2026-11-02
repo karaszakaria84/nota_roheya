@@ -807,11 +807,11 @@ body.attendance-modal-open{overflow:hidden}
 <p>اختار مخدوم علشان تشوف الأيام والمهام اللي سجلها.</p>
 </div>
         <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
-          <button class="btn" type="button" onclick="showWeeklyLeadersPage()">🏆 الأوائل</button>
           <button class="btn" type="button" onclick="showAttendancePage()">📋 تسجيل الحضور</button>
           <button class="btn logout" onclick="logout()">تسجيل خروج</button>
         </div>
       </div>
+      <section style="background:#fffdf8;border:1px solid #e8e2d5;border-radius:18px;padding:18px;margin:12px 0"><div class="section-title"><h3>🏆 أوائل التقدم هذا الأسبوع</h3></div><p style="font-size:13px">التقدم محسوب من بيانات الأسبوع الحالي مقارنة بالسابق.</p><div id="weeklyLeaders" class="task-grid">جاري حساب التقدم...</div></section>
       <div class="section-title">
 <h3>أسماء المخدومين</h3>
 <span id="adminUserCount">0 مخدوم</span>
@@ -922,14 +922,6 @@ body.attendance-modal-open{overflow:hidden}
           </div>
         </section>
       </div>
-    </section>
-
-    <section class="dashboard hidden" id="weeklyLeadersPage">
-      <div class="dash-head">
-        <div><h1>🏆 أوائل التقدم هذا الأسبوع</h1><p>المراكز حسب عدد المهام المكتملة والتقدم الأسبوعي، والتعادل يظهر لكل أصحاب المركز.</p></div>
-        <button class="btn btn-light" type="button" onclick="hideWeeklyLeadersPage()">← رجوع للوحة الخدام</button>
-      </div>
-      <div id="weeklyLeaders" style="display:grid;gap:18px;margin-top:16px"></div>
     </section>
 
   </main>
@@ -1401,60 +1393,7 @@ async function renderFruits(){
  $('fruitComparison').textContent='مقارنة الأسبوع المكتمل السابق بالأسبوع الذي قبله: '+msg;
  $('fruitLadder').innerHTML=`<strong>سلّم التقدم: ${level===0?'بداية السلم':'الدرجة '+level+' من 10'}</strong><div style="display:flex;gap:4px;align-items:end;height:65px;margin-top:8px">${Array.from({length:10},(_,i)=>`<span style="flex:1;height:${8+(i+1)*5}px;background:${i<level?'#245849':'#d9dfd7'};border-radius:3px 3px 0 0"></span>`).join('')}</div>`;
 }
-async function readWeeklyRankingStats(uid, week){
-  const snap=await db.collection('users').doc(uid).collection('days')
-    .where(firebase.firestore.FieldPath.documentId(),'>=',week.from)
-    .where(firebase.firestore.FieldPath.documentId(),'<',week.to).get();
-  let completed=0,activeDays=0;
-  snap.forEach(doc=>{
-    const done=Array.isArray(doc.data().done)?doc.data().done:[];
-    const valid=done.filter(id=>tasks.some(task=>String(task.id)===String(id)));
-    completed+=valid.length;
-    if(valid.length)activeDays++;
-  });
-  return {completed,activeDays,percent:Math.round(completed/(tasks.length*7)*100)};
-}
-async function renderWeeklyLeaders(){
-  const root=$('weeklyLeaders');if(!root)return;
-  try{
-    const currentWeek=getSpiritualWeek(0),previousWeek=getSpiritualWeek(-1);
-    const snap=await db.collection('users').get();
-    const users=snap.docs.map(d=>({...d.data(),uid:d.id})).filter(u=>['أولى إعدادي','ثانية إعدادي','ثالثة إعدادي'].includes(u.grade));
-    const grades=['أولى إعدادي','ثانية إعدادي','ثالثة إعدادي'];
-    const out=[];
-    for(const grade of grades){
-      const gradeUsers=users.filter(u=>u.grade===grade);
-      const ranked=await Promise.all(gradeUsers.map(async u=>{
-        const [now,prev]=await Promise.all([readWeeklyRankingStats(u.uid,currentWeek),readWeeklyRankingStats(u.uid,previousWeek)]);
-        return {...u,weeklyCompleted:now.completed,weeklyPercent:now.percent,activeDays:now.activeDays,progressDelta:now.completed-prev.completed};
-      }));
-      ranked.sort((a,b)=>b.weeklyCompleted-a.weeklyCompleted||b.progressDelta-a.progressDelta||a.name.localeCompare(b.name,'ar'));
-      const positions=[1,2,3], slots=[]; let rank=0,lastKey=null;
-      ranked.forEach((u,index)=>{const key=`${u.weeklyCompleted}|${u.progressDelta}`;if(key!==lastKey)rank=index+1;lastKey=key;if(rank<=3){if(!slots[rank])slots[rank]=[];slots[rank].push(u);}});
-      const medals={1:'🥇',2:'🥈',3:'🥉'};
-      const cards=positions.map(pos=>{
-        const people=slots[pos]||[];
-        const body=people.length?people.map(u=>`<div class="history-task" style="margin:8px 0;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap"><div><strong>${escapeHtml(u.name||'مخدوم')}</strong><p style="margin:5px 0">${escapeHtml(grade)}</p><small>${u.weeklyCompleted} مهمة مكتملة · ${u.weeklyPercent}% تقدم · ${u.activeDays} أيام نشاط</small><br><small>${u.progressDelta>0?`زاد ${u.progressDelta} مهمة عن الأسبوع السابق`:u.progressDelta<0?`أقل بـ ${Math.abs(u.progressDelta)} مهمة عن الأسبوع السابق`:'نفس عدد مهام الأسبوع السابق'}</small></div><strong style="font-size:20px;color:#b28a35">${u.weeklyCompleted}</strong></div>`).join(''):
-          `<div style="padding:20px 12px;text-align:center;color:#879187"><div style="font-size:30px">${medals[pos]}</div><strong>المركز ${pos===1?'الأول':pos===2?'الثاني':'الثالث'}</strong><p style="margin:8px 0">لسه مستنيين المخدومين 🌱</p><small>هيظهر هنا صاحب المركز لما يبدأ يكمل مهام الأسبوع</small></div>`;
-        return `<article style="background:#fffdf8;border:1px solid #e8e2d5;border-radius:18px;padding:16px;min-height:150px"><h3 style="margin:0;color:#245849">${medals[pos]} المركز ${pos===1?'الأول':pos===2?'الثاني':'الثالث'}</h3>${body}</article>`;
-      }).join('');
-      out.push(`<section style="background:#f8f6ef;border:1px solid #e8e2d5;border-radius:20px;padding:16px"><h2 style="margin:0 0 12px;color:#245849">${grade}</h2><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px">${cards}</div></section>`);
-    }
-    root.innerHTML=out.join('');
-  }catch(e){console.error(e);root.textContent='تعذر تحميل ترتيب الأسبوع؛ راجع صلاحيات Firebase.'}
-}
-
-function showWeeklyLeadersPage(){
-  $('adminPage').classList.add('hidden');
-  $('attendancePage').classList.add('hidden');
-  $('weeklyLeadersPage').classList.remove('hidden');
-  renderWeeklyLeaders();
-}
-function hideWeeklyLeadersPage(){
-  $('weeklyLeadersPage').classList.add('hidden');
-  $('adminPage').classList.remove('hidden');
-}
-
+async function renderWeeklyLeaders(){const root=$('weeklyLeaders');if(!root)return;try{const w=getSpiritualWeek(0),pw=getSpiritualWeek(-1),snap=await db.collection('users').get(),users=snap.docs.map(d=>({...d.data(),uid:d.id})).filter(u=>['أولى إعدادي','ثانية إعدادي','ثالثة إعدادي'].includes(u.grade));const out=[];for(const grade of ['أولى إعدادي','ثانية إعدادي','ثالثة إعدادي']){let best=null;for(const u of users.filter(x=>x.grade===grade)){const [a,b]=await Promise.all([readWeekDone(u.uid,w),readWeekDone(u.uid,pw)]);const score=Object.values(a).reduce((m,v)=>m+v,0)-Object.values(b).reduce((m,v)=>m+v,0);if(!best||score>best.score)best={name:u.name||'مخدوم',score};}out.push(`<div class="history-task"><strong>${grade}</strong><p>${best?best.name:'لا يوجد مخدومون'}</p><small>${best&&best.score>0?'حقق تقدمًا هذا الأسبوع':'لم يظهر تقدم أعلى من الأسبوع السابق'}</small></div>`);}root.innerHTML=out.join('');}catch(e){console.error(e);root.textContent='تعذر تحميل ترتيب الأسبوع؛ راجع صلاحيات Firebase.'}}
 
 let selectedAdminUser=null;
 let selectedAdminGrade='الكل';
@@ -1742,7 +1681,6 @@ function showAdmin(){
   renderWeeklyLeaders();
   loadAttendanceStudents();
   $('attendancePage').classList.add('hidden');
-  $('weeklyLeadersPage').classList.add('hidden');
   $('weeklyLeaders').parentElement.classList.remove('hidden');
   $('adminGradeCards').classList.remove('hidden');
   $('adminUserCount').parentElement.classList.remove('hidden');
