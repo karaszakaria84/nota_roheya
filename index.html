@@ -1571,16 +1571,41 @@ function showAttendanceMatches(matches) {
     button.addEventListener('click', () => selectAttendanceStudent(student)); root.appendChild(button);
   });
 }
+function arabicNameSimilarity(a, b) {
+  // مقارنة تقريبية لتجاوز أخطاء بسيطة في تحويل الصوت إلى نص، دون اعتماد الاسم تلقائيًا.
+  if (!a || !b) return 0;
+  if (a === b) return 1;
+  if (a.includes(b) || b.includes(a)) return 0.96;
+  const aa = a.split(' ').filter(Boolean), bb = b.split(' ').filter(Boolean);
+  const shared = aa.filter(token => bb.some(other => other === token ||
+    (Math.min(token.length, other.length) >= 3 &&
+     (token.startsWith(other) || other.startsWith(token))))).length;
+  const tokenScore = shared / Math.max(aa.length, bb.length);
+  function distance(x, y) {
+    const row = Array.from({length: y.length + 1}, (_, i) => i);
+    for (let i = 1; i <= x.length; i++) {
+      let prev = row[0]; row[0] = i;
+      for (let j = 1; j <= y.length; j++) {
+        const temp = row[j];
+        row[j] = Math.min(row[j] + 1, row[j - 1] + 1, prev + (x[i - 1] === y[j - 1] ? 0 : 1));
+        prev = temp;
+      }
+    }
+    return row[y.length];
+  }
+  const editScore = 1 - distance(a, b) / Math.max(a.length, b.length);
+  return Math.max(tokenScore, editScore * 0.9);
+}
 function searchAttendanceStudents(transcript) {
   const raw = transcript !== undefined ? transcript : $('attendanceManualSearch').value;
   const query = normalizeArabicName(raw);
   if (!query) { $('attendanceMatches').innerHTML = '<div class="empty-state">اكتب الاسم أو ابدأ الاستماع.</div>'; cancelAttendanceSelection(); return; }
-  const matches = attendanceStudents.filter(student => {
-    const name = normalizeArabicName(student.name);
-    return name && (name.includes(query) || query.includes(name));
-  });
-  showAttendanceMatches(matches);
-  $('attendanceSpeechStatus').textContent = transcript !== undefined ? `تم سماع: «${transcript}» — اختار الاسم الصحيح.` : 'نتائج البحث بالاسم:';
+  const ranked = attendanceStudents.map(student => ({student, score: arabicNameSimilarity(query, normalizeArabicName(student.name))}))
+    .filter(item => item.score >= 0.48)
+    .sort((a, b) => b.score - a.score)
+    .map(item => item.student);
+  showAttendanceMatches(ranked);
+  $('attendanceSpeechStatus').textContent = transcript !== undefined ? `تم سماع: «${transcript}» — راجع الاسم واختار المخدوم الصحيح.` : 'نتائج البحث بالاسم:';
 }
 function selectAttendanceStudent(student) {
   attendanceSelectedStudent = student;
@@ -1595,7 +1620,26 @@ function startAttendanceListening() {
   attendanceRecognition = new SpeechRecognition(); attendanceRecognition.lang = 'ar-EG';
   attendanceRecognition.continuous = false; attendanceRecognition.interimResults = false; attendanceRecognition.maxAlternatives = 3;
   attendanceRecognition.onstart = () => { $('attendanceSpeechStatus').textContent = '🎙️ بسمع دلوقتي... خلي المخدوم يقول اسمه.'; $('startAttendanceListen').disabled = true; $('stopAttendanceListen').disabled = false; };
-  attendanceRecognition.onresult = event => { const transcript = event.results[0][0].transcript.trim(); $('attendanceManualSearch').value = transcript; searchAttendanceStudents(transcript); };
+  attendanceRecognition.onresult = event => {
+    const alternatives = [];
+    for (let i = 0; i < event.results[0].length; i++) {
+      const text = event.results[0][i].transcript.trim();
+      if (text && !alternatives.includes(text)) alternatives.push(text);
+    }
+    const transcript = alternatives[0] || '';
+    $('attendanceManualSearch').value = transcript;
+    const queries = alternatives.map(normalizeArabicName).filter(Boolean);
+    const ranked = attendanceStudents.map(student => ({
+      student,
+      score: Math.max(0, ...queries.map(query => arabicNameSimilarity(query, normalizeArabicName(student.name))))
+    })).filter(item => item.score >= 0.48)
+      .sort((a, b) => b.score - a.score)
+      .map(item => item.student);
+    showAttendanceMatches(ranked);
+    $('attendanceSpeechStatus').textContent = alternatives.length > 1
+      ? `اللي سمعته: ${alternatives.join(' / ')} — راجع الاسم واختار الشخص الصحيح.`
+      : `اللي سمعته: «${transcript}» — راجع الاسم واختار الشخص الصحيح.`;
+  };
   attendanceRecognition.onerror = event => { const messages = {'not-allowed':'اسمح للمتصفح باستخدام الميكروفون.','no-speech':'ملحقتش أسمع الاسم. جرّب تاني.','network':'حصلت مشكلة في تحويل الكلام لنص. استخدم البحث اليدوي.'}; $('attendanceSpeechStatus').textContent = messages[event.error] || 'حصلت مشكلة أثناء الاستماع.'; };
   attendanceRecognition.onend = () => { $('startAttendanceListen').disabled = false; $('stopAttendanceListen').disabled = true; };
   try { attendanceRecognition.start(); } catch(e) { $('attendanceSpeechStatus').textContent = 'تعذر بدء الميكروفون. جرّب تاني.'; }
