@@ -1503,13 +1503,46 @@ async function renderAttendanceRecords() {
       const grade = document.createElement('p'); grade.textContent = record.grade || 'السنة الدراسية غير مسجلة';
       const time = document.createElement('small');
       time.textContent = record.recordedAt && record.recordedAt.toDate ? `وقت التسجيل: ${record.recordedAt.toDate().toLocaleTimeString('ar-EG')}` : 'تم تسجيل الحضور';
-      card.append(name, grade, time); root.appendChild(card);
+      const removeButton = document.createElement('button');
+      removeButton.type = 'button';
+      removeButton.className = 'btn';
+      removeButton.style.background = '#9b3d36';
+      removeButton.style.color = '#fff';
+      removeButton.style.border = '0';
+      removeButton.style.borderRadius = '10px';
+      removeButton.style.padding = '9px 14px';
+      removeButton.style.cursor = 'pointer';
+      removeButton.textContent = 'حذف من الكشف';
+      removeButton.style.marginTop = '10px';
+      removeButton.addEventListener('click', () => deleteAttendanceRecord(doc.id, record.name || 'المخدوم', removeButton));
+      card.append(name, grade, time, removeButton); root.appendChild(card);
     });
   } catch (e) {
     console.error('Attendance records loading error:', e);
     root.innerHTML = '<div class="empty-state">تعذر تحميل الحضور. راجع اتصال الإنترنت وقواعد Firestore.</div>';
   }
 }
+
+async function deleteAttendanceRecord(studentUid, studentName, button) {
+  if (!isWednesdayDate(selectedAttendanceDate) || !studentUid) return;
+  const approved = window.confirm(`هل تريد حذف حضور ${studentName} من كشف يوم ${formatAttendanceDate(selectedAttendanceDate)}؟`);
+  if (!approved) return;
+  const admin = auth.currentUser;
+  if (!admin) { alert('سجّل دخول الأدمن مرة تانية.'); return; }
+  button.disabled = true;
+  button.textContent = 'جاري الحذف...';
+  try {
+    await db.collection('attendance').doc(selectedAttendanceDate)
+      .collection('records').doc(studentUid).delete();
+    await renderAttendanceRecords();
+  } catch (e) {
+    console.error('Attendance delete error:', e);
+    alert('تعذر حذف الحضور. تأكد من نشر قواعد Firestore الجديدة واتصال الإنترنت.');
+    button.disabled = false;
+    button.textContent = 'حذف من الكشف';
+  }
+}
+
 function openAttendanceRegister() {
   if (!isWednesdayDate(selectedAttendanceDate)) return;
   $('attendanceRegisterBox').classList.remove('hidden'); document.body.classList.add('attendance-modal-open');
