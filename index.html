@@ -1613,13 +1613,35 @@ function selectAttendanceStudent(student) {
   $('attendanceSelectedDetails').textContent = `السنة الدراسية: ${student.grade || 'غير مسجلة'}`;
   $('attendanceSelected').classList.remove('hidden');
 }
+let attendanceSoundContext = null;
+function playAttendanceBeep(frequency, duration = 0.16) {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    if (!attendanceSoundContext) attendanceSoundContext = new AudioCtx();
+    if (attendanceSoundContext.state === 'suspended') attendanceSoundContext.resume();
+    const oscillator = attendanceSoundContext.createOscillator();
+    const gain = attendanceSoundContext.createGain();
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(frequency, attendanceSoundContext.currentTime);
+    gain.gain.setValueAtTime(0.0001, attendanceSoundContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.16, attendanceSoundContext.currentTime + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.0001, attendanceSoundContext.currentTime + duration);
+    oscillator.connect(gain);
+    gain.connect(attendanceSoundContext.destination);
+    oscillator.start();
+    oscillator.stop(attendanceSoundContext.currentTime + duration + 0.02);
+  } catch (_) {}
+}
 function startAttendanceListening() {
   const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (!SpeechRecognition) { $('attendanceSpeechStatus').textContent = 'المتصفح لا يدعم تحويل الكلام لنص. استخدم البحث اليدوي أو Chrome على أندرويد.'; return; }
   if (attendanceRecognition) { try { attendanceRecognition.stop(); } catch (_) {} }
+  // تهيئة الصوت من ضغطة المستخدم للسماح بتشغيل التنبيه في المتصفح.
+  try { const AudioCtx = window.AudioContext || window.webkitAudioContext; if (AudioCtx && !attendanceSoundContext) attendanceSoundContext = new AudioCtx(); if (attendanceSoundContext && attendanceSoundContext.state === 'suspended') attendanceSoundContext.resume(); } catch (_) {}
   attendanceRecognition = new SpeechRecognition(); attendanceRecognition.lang = 'ar-EG';
   attendanceRecognition.continuous = false; attendanceRecognition.interimResults = false; attendanceRecognition.maxAlternatives = 3;
-  attendanceRecognition.onstart = () => { $('attendanceSpeechStatus').textContent = '🎙️ بسمع دلوقتي... خلي المخدوم يقول اسمه.'; $('startAttendanceListen').disabled = true; $('stopAttendanceListen').disabled = false; };
+  attendanceRecognition.onstart = () => { playAttendanceBeep(880); $('attendanceSpeechStatus').textContent = '🎙️ بسمع دلوقتي... خلي المخدوم يقول اسمه.'; $('startAttendanceListen').disabled = true; $('stopAttendanceListen').disabled = false; };
   attendanceRecognition.onresult = event => {
     const alternatives = [];
     for (let i = 0; i < event.results[0].length; i++) {
@@ -1641,7 +1663,7 @@ function startAttendanceListening() {
       : `اللي سمعته: «${transcript}» — راجع الاسم واختار الشخص الصحيح.`;
   };
   attendanceRecognition.onerror = event => { const messages = {'not-allowed':'اسمح للمتصفح باستخدام الميكروفون.','no-speech':'ملحقتش أسمع الاسم. جرّب تاني.','network':'حصلت مشكلة في تحويل الكلام لنص. استخدم البحث اليدوي.'}; $('attendanceSpeechStatus').textContent = messages[event.error] || 'حصلت مشكلة أثناء الاستماع.'; };
-  attendanceRecognition.onend = () => { $('startAttendanceListen').disabled = false; $('stopAttendanceListen').disabled = true; };
+  attendanceRecognition.onend = () => { playAttendanceBeep(587); $('startAttendanceListen').disabled = false; $('stopAttendanceListen').disabled = true; };
   try { attendanceRecognition.start(); } catch(e) { $('attendanceSpeechStatus').textContent = 'تعذر بدء الميكروفون. جرّب تاني.'; }
 }
 function stopAttendanceListening() { if (attendanceRecognition) { try { attendanceRecognition.stop(); } catch (_) {} } }
